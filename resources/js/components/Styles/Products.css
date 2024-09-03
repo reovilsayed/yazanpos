@@ -1,0 +1,13 @@
+.effect_products {
+    transition: all 0.2s ease-in-out;
+}
+.effect_products:hover {
+    transform: scale(1.1);
+}
+.card-body-p:hover {
+    color: blue;
+}
+.custom-card {
+    height: 250px;
+    max-height: 250px;
+}

@@ -1,0 +1,88 @@
+.hover_Effect {
+    background: inherit;
+}
+.hover_Effect:hover {
+    background: #f4f4f4;
+    border-radius: 5px;
+}
+
+@media screen and (max-width: 500px) {
+    .ant-picker-panels {
+        display: flex;
+        flex-direction: column !important;
+    }
+    .ant-picker-dropdown.css-dev-only-do-not-override-1xg9z9n.ant-picker-dropdown-range.ant-picker-dropdown-placement-bottomLeft {
+        width: 100%;
+        max-width: 100% !important;
+    }
+}
+@media screen and (max-width: 500px) {
+    .ant-picker-panels {
+        display: flex;
+        flex-direction: column !important;
+    }
+    .ant-picker-dropdown.css-dev-only-do-not-override-1xg9z9n.ant-picker-dropdown-range.ant-picker-dropdown-placement-bottomRight {
+        --arrow-x: 108px;
+        --arrow-y: -2px;
+
+        box-sizing: border-box;
+        /* min-width: 100px !important; */
+        min-width: 100%;
+    }
+    .ant-picker-dropdown.css-dev-only-do-not-override-1xg9z9n.ant-picker-dropdown-range.ant-picker-dropdown-placement-bottomLeft {
+        --arrow-x: 108px;
+        --arrow-y: -2px;
+
+        box-sizing: border-box;
+        /* min-width: 100px !important; */
+        min-width: 100%;
+    }
+    .ant-picker-dropdown.css-dev-only-do-not-override-1xg9z9n.ant-picker-dropdown-range.ant-picker-dropdown-placement-bottomLeft {
+        inset: 98px auto auto 8px !important;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .ant-picker-dropdown.css-dev-only-do-not-override-1xg9z9n.ant-picker-dropdown-range.ant-picker-dropdown-placement-bottomRight {
+        inset: 124px auto auto 769px !important;
+        min-width: 240px !important;
+    }
+    .ant-picker-panels {
+        display: flex;
+        flex-direction: row !important;
+    }
+}
+
+.calender_hover:hover {
+    color: blue !important;
+}
+
+.calender_hover {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    border: 1px solid #eaeaea;
+    transition: border 0.2s ease;
+}
+.calender_hover:hover {
+    border: 1px solid #11a;
+}
+
+.calender_hover > svg path {
+    fill: rgb(22, 21, 21);
+    transition: fill 0.2s ease, stroke 0.2s ease; /* Include stroke transition */
+}
+
+.calender_hover > svg:hover path {
+    fill: #11a;
+}
+
+@media screen and (max-width: 500px) {
+    .responsive_font {
+        font-size: 9px !important;
+        font-weight: 600 !important;
+    }
+}

@@ -1,0 +1,117 @@
+.customOverlay {
+    background: rgba(54, 54, 54, 0.7);
+}
+.customModal {
+    width: 80%;
+    max-width: 80%;
+    height: fit-content;
+    border-radius: 20px;
+}
+.form-control.css-b62m3t-container {
+    border: none;
+}
+
+.form-control {
+    background-color: transparent;
+}
+.btn.btn-outline-secondary.dropdown-toggle.dropdown-toggle-split {
+    display: none;
+}
+.modal-header {
+    padding: 0.5rem 1rem;
+}
+
+.form-group {
+    margin-bottom: 8px;
+}
+/* .table-responsive {
+    height: 235px;
+    width: 100%;
+}
+.offcanvas-body.p-0 {
+    position: relative;
+}
+.card-footer.bg-light {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+} */
+/* .card {
+    position: unset;
+}
+.card.p-0 {
+    min-height: calc(100vh - 255px);
+    width: 100%;
+    overflow-y: auto;
+}
+
+.card-body.table-responsive {
+    min-height: calc(100vh - 370px);
+    height: calc(100vh - 370px);
+}
+@media screen and (max-width: 350px) {
+    .card-body.table-responsive {
+        min-height: calc(100vh - 670px) !important;
+        height: calc(100vh - 670px) !important;
+        overflow-x: auto;
+    }
+} */
+.modal-dialog.modal-dialog-scrollable.modal-dialog-centered.modal-xl.modal_modal {
+    width: 100%;
+    max-width: 100%;
+}
+.modal-dialog.modal-dialog-scrollable.modal-dialog-centered.modal-xl.modal_modal {
+    border: none;
+}
+.modal-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.modal-footer {
+    border: none;
+}
+.modal-dialog.modal-dialog-scrollable.modal-dialog-centered.modal-xl.modal_modal {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.paymentModal_content {
+    height: 100% !important;
+}
+.customModal {
+    border-radius: 10px !important;
+}
+.modal-content.data.paymentModal_content {
+    border: navajowhite;
+}
+.modal-footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+.react-responsive-modal-modal.customModal {
+    padding: 0 !important;
+}
+.table.table-primary {
+    padding: 0px;
+    margin: 0px;
+}
+
+.react-responsive-modal-modal {
+    width: 60%;
+    max-width: 1124px;
+}
+
+/* .card.p-0 {
+    min-height: calc(100vh - 255px);
+    width: 100%;
+    overflow-y: auto;
+    position: relative;
+    left: 0;
+    top: 0;
+    height: 100%;
+    z-index: 1;
+}
+.css-1nmdiq5-menu {
+    z-index: 101 !important;
+}
+.card-body.p-0.table-responsive.pb-4 {
+    overflow-x: hidden;
+} */

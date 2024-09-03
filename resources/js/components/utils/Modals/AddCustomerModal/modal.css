@@ -1,0 +1,34 @@
+.react-responsive-modal-closeButton {
+    display: none;
+}
+
+.react-responsive-modal-modal.modal-content_modal {
+    width: 80%;
+    max-width: 80%;
+    height: 90%;
+}
+
+.modal-dialog-scrollable .modal-body .modal_cls {
+    overflow-y: auto;
+    padding-bottom: 10px;
+}
+.scroll-container {
+    overflow: hidden; /* or overflow-x: hidden; or overflow-y: hidden; */
+}
+.modal-dialog.modal-dialog-scrollable.modal-dialog-centered.modal-xl.modal_modal {
+    width: 95%;
+    max-width: 95%;
+}
+.customOverlay1 {
+    background: rgba(54, 54, 54, 0.7);
+}
+.customModal1 {
+    width: 60%;
+    max-width: 60%;
+    height: 70%;
+    border-radius: 20px;
+}
+.modal-dialog.modal-dialog-scrollable.modal-dialog-centered {
+    width: 90%;
+    max-width: 90%;
+}

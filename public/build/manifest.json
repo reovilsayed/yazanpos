@@ -1,0 +1,36 @@
+{
+  "resources/js/components/assets/Click Sound Effect.mp3": {
+    "file": "assets/Click Sound Effect.1f4c03dd.mp3",
+    "src": "resources/js/components/assets/Click Sound Effect.mp3"
+  },
+  "resources/js/components/assets/no-image.jpg": {
+    "file": "assets/no-image.b9e79929.jpg",
+    "src": "resources/js/components/assets/no-image.jpg"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app.6868e47f.js",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "_howler.d955e6c2.js"
+    ],
+    "css": [
+      "assets/app.fad28c4c.css"
+    ],
+    "assets": [
+      "assets/no-image.b9e79929.jpg",
+      "assets/Click Sound Effect.1f4c03dd.mp3"
+    ]
+  },
+  "_howler.d955e6c2.js": {
+    "file": "assets/howler.d955e6c2.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "resources/js/app.css": {
+    "file": "assets/app.fad28c4c.css",
+    "src": "resources/js/app.css"
+  }
+}

@@ -1,0 +1,30 @@
+.modal-dialog.modal-dialog-scrollable.modal-dialog-centered {
+    width: 100% !important ;
+    max-width: 100% !important;
+}
+.customModal1 {
+    width: 60%;
+    max-width: 60%;
+    height: fit-content !important;
+    border-radius: 10px;
+}
+.modal-dialog.modal-dialog-scrollable.modal-dialog-centered {
+    margin: 0;
+    padding: 0;
+}
+.customModal1 {
+    width: 60%;
+    max-width: 60%;
+    height: 70%;
+    border-radius: 10px !important;
+}
+.add_footer {
+    border: none !important;
+}
+.react-responsive-modal-modal.customModal1 {
+    padding: 0;
+}
+.react-responsive-modal-modal.customModal1 {
+    width: 100%;
+    max-width: 730px !important;
+}
