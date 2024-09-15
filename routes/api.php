@@ -36,6 +36,7 @@ Route::middleware(['api.auth'])->group(function () {
     Route::post('create-customer', [ApiController::class, 'customerCreate']);
     Route::get('prescription', [ApiController::class, 'prescription']);
     Route::post('reports', [ApiController::class, 'reports']);
+    Route::post('get-variation-price', [ApiController::class, 'getVariationPrice']);
 
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'api_login']);
