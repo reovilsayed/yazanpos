@@ -221,14 +221,9 @@ const CartModal = ({
                     /> */}
 
                     <ModalBody
-                        handelDeleteCartData={handelDeleteCartData}
                         cartDataValue={cartDataValue}
                         setRefresh={setRefresh}
                         refresh={refresh}
-                        addToCart={addToCart}
-                        removeFromCart={removeFromCart}
-                        cartQuantity={cartQuantity}
-                        play={play}
                         setCustomerDiscound={setCustomerDiscound}
                         prescriptionData={prescriptionData}
                         totalPrice={totalPrice}
