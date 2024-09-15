@@ -4,6 +4,7 @@ import AddCustomerModal from "../AddCustomerModal/AddCustomerModal";
 import Select from "react-select";
 import "../PaymentModal/payment.css";
 import useFetch from "../../../Hooks/useFatch";
+import AddProductModal from "../AddProductModal/AddProductModal";
 
 const options = [{ value: 0, label: "Walkin Customer" }];
 
@@ -49,8 +50,28 @@ const ModalHeader = ({
     const selectOption = allOptions?.find(
         (item) => item?.value === Number(prescriptionData?.data?.customer?.id)
     );
+
+    const [openAddProduct, setOpenAddProduct] = useState(false);
+    const onOpenAddProductModal = () => setOpenAddProduct(true);
+    const onCloseAddProductModal = () => setOpenAddProduct(false);
+
     return (
         <div className="card__header">
+            <div className="d-flex justify-content-end width-full my-2">
+                <button
+                    onClick={onOpenAddProductModal}
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+                    className="btn btn-primary btn-sm"
+                    type="button"
+                    style={{
+                        height: "36px",
+                        marginLeft: "auto",
+                    }}
+                >
+                    Custom Product {"+"} {/* <i className="fa fa-plus"></i> */}
+                </button>
+            </div>
             <div className="input-group">
                 <div
                     style={{
@@ -118,6 +139,13 @@ const ModalHeader = ({
                     onCloseModal={onCloseModal}
                     onOpenModal={onCloseModal}
                     open={open}
+                />
+            )}
+
+            {openAddProduct && (
+                <AddProductModal
+                    open={openAddProduct}
+                    onCloseModal={onCloseAddProductModal}
                 />
             )}
         </div>
