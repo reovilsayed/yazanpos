@@ -43,6 +43,9 @@ const PaymentModal = ({
 
         if (discountPrice > grand_total) return;
         setCustomDiscount(grand_total - discountPrice);
+        setDueAmount((prev) =>
+            prev > discountPrice ? prev - discountPrice : 0
+        );
     };
     const handleDiscountType = (value) => {
         const discountPrice =
@@ -55,6 +58,9 @@ const PaymentModal = ({
                 : grand_total;
         if (discountPrice > grand_total) return;
         setCustomDiscount(grand_total - discountPrice);
+        setDueAmount((prev) =>
+            prev > discountPrice ? prev - discountPrice : 0
+        );
         setDiscountType(value);
         toggleDropdown();
     };
@@ -79,12 +85,16 @@ const PaymentModal = ({
         tmp = tmp.map((item, index) => {
             if (index < tmp.length - 1) {
                 newReceived = grand_total - item.received;
+                newReceived =
+                    newReceived > customDiscount
+                        ? newReceived - customDiscount
+                        : newReceived;
                 return item;
             }
             return { ...item, received: newReceived };
         });
         setPaymentFields(tmp);
-        setDueAmount(0.0);
+        setDueAmount(0);
     };
 
     const removePaymentField = (index) => {

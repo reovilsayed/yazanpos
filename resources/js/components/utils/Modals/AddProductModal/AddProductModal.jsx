@@ -15,7 +15,11 @@ function AddProductModal({ open, onCloseModal }) {
     const { addItem } = useCart();
     const addProduct = () => {
         if (productdata["name"] && productdata["price"]) {
-            addItem({ ...productdata, id: `custom-${crypto.randomUUID()}` });
+            addItem({
+                ...productdata,
+                price: parseFloat(productdata["price"]),
+                id: `custom-${crypto.randomUUID()}`,
+            });
             setProductData();
             toast.success("Custom product added");
             onCloseModal();

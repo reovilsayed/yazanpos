@@ -186,21 +186,34 @@ class ApiController extends Controller
 
         $order = Order::create($orderData);
 
+        foreach ($customProducts as $product) {
+            if (auth()->user()->role->hasPermissionTo('create product')) {
+                $newProduct = Product::create([
+                    'name' => $product['name'],
+                    'price' => $product['price'],
+                ]);
+                $data[] = [
+                    'product_id' => $newProduct->id,
+                    'quantity' => $product['quantity'],
+                    'price' => $product['price'],
+                    'profit' => 0,
+                ];
+            } else {
+                DB::table('order_product')->insert([
+                    'order_id' => $order->id,
+                    'name' => $product['name'],
+                    'quantity' => $product['quantity'],
+                    'price' => $product['price'],
+                    'profit' => 0,
+                ]);
+            }
+        }
         $order->products()->sync($data);
         $profit = 0;
         foreach ($order->products as $product) {
             $profit += ($product->pivot->price - $product->trade_price) * $product->pivot->quantity;
             $product->sold_unit = $product->sold_unit + $product->pivot->quantity;
             $product->save();
-        }
-        foreach ($customProducts as $product) {
-            DB::table('order_product')->insert([
-                'order_id' => $order->id,
-                'name' => $product['name'],
-                'quantity' => $product['quantity'],
-                'price' => $product['price'],
-                'profit' => 0,
-            ]);
         }
         $profit -= $order->discount;
 
