@@ -14,11 +14,13 @@ use App\Models\Priscription;
 use App\Models\Supplier;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 use Settings;
 
 class ApiController extends Controller
@@ -27,7 +29,7 @@ class ApiController extends Controller
 
     public function pos(Request $request)
     {
-        $products = Product::when(Settings::option('manageStock') == 1, function ($query) {
+        $products = Product::with('attributes')->whereNull('parent_id')->when(Settings::option('manageStock') == 1, function ($query) {
             return $query->has('batches');
         })->mostSold()
             ->when($request->categoriesInput, function ($query) use ($request) {
@@ -131,14 +133,24 @@ class ApiController extends Controller
     public function orderCreate(Request $request)
     {
         $emailTo = Settings::option('email');
+        $customProducts = [];
         $data = [];
         foreach ($request->cartInfo['products'] as $id => $product) {
-            $data[$id] = [
-                'product_id' => $product['id'], // Assuming 'id' is the correct key for the product_id
-                'quantity' => $product['quantity'],
-                'price' => $product['price'],
-                'profit' => 0,
-            ];
+            if (Str::startsWith($product['id'], 'custom-')) {
+                $customProducts[] = [
+                    'name' => $product['name'],
+                    'quantity' => $product['quantity'],
+                    'price' => $product['price'],
+                    'profit' => 0,
+                ];
+            } else {
+                $data[$id] = [
+                    'product_id' => $product['id'],
+                    'quantity' => $product['quantity'],
+                    'price' => $product['price'],
+                    'profit' => 0,
+                ];
+            }
         }
 
         if ($request->cartInfo['discount'] > $request->cartInfo['sub_total'] * .12) {
@@ -151,17 +163,16 @@ class ApiController extends Controller
 
         $paid = $request->paymentInfo['received_amount'] - $request->paymentInfo['change_amount'];
         $due = $total - $paid;
-
         $orderData = [
             'sub_total' => $request->cartInfo['sub_total'],
             'discount' => $discount,
             'total' => $total,
-            'payment_method' => $request->paymentInfo['type'],
             'paid' => $paid,
             'due' => $due,
             'notes' => $request->paymentInfo['notes'],
             'status' => $request->paymentInfo['status'],
             'profit' => 0,
+            'split_payment' => json_encode($request->paymentInfo['split_payment'])
         ];
 
         if (isset($request->paymentInfo['customer_id'])) {
@@ -175,6 +186,28 @@ class ApiController extends Controller
 
         $order = Order::create($orderData);
 
+        foreach ($customProducts as $product) {
+            if (auth()->user()->role->hasPermissionTo('create product')) {
+                $newProduct = Product::create([
+                    'name' => $product['name'],
+                    'price' => $product['price'],
+                ]);
+                $data[] = [
+                    'product_id' => $newProduct->id,
+                    'quantity' => $product['quantity'],
+                    'price' => $product['price'],
+                    'profit' => 0,
+                ];
+            } else {
+                DB::table('order_product')->insert([
+                    'order_id' => $order->id,
+                    'name' => $product['name'],
+                    'quantity' => $product['quantity'],
+                    'price' => $product['price'],
+                    'profit' => 0,
+                ]);
+            }
+        }
         $order->products()->sync($data);
         $profit = 0;
         foreach ($order->products as $product) {
@@ -182,7 +215,6 @@ class ApiController extends Controller
             $product->sold_unit = $product->sold_unit + $product->pivot->quantity;
             $product->save();
         }
-
         $profit -= $order->discount;
 
         $order->profit = $profit;
@@ -214,7 +246,7 @@ class ApiController extends Controller
         $request->validate([
             'name' => ['required', 'string'],
             'phone' => ['required', 'string', 'digits:11', Rule::unique('users')->ignore(auth()->id())],
-            'email' => ['nullable', 'string','email'],
+            'email' => ['nullable', 'string', 'email'],
             'address' => ['required', 'string'],
         ]);
         $data = $request->only('name', 'email', 'phone', 'address', 'discount');
@@ -321,5 +353,31 @@ class ApiController extends Controller
             'top_suppliers' => $topSuppliers->map($mapSupplier)->values(),
             'top_due_customers' => $topDueCustomers->map($mapCustomer)->values(),
         ]);
+    }
+
+    function getVariationPrice(Request $request)
+    {
+        $request->validate([
+            'parent_id' => 'required',
+            'variation' => 'required',
+        ]);
+
+        $parentId = $request->input('parent_id');
+        $variation = $request->input('variation');
+
+        $product = Product::where('parent_id', $parentId)
+            ->whereJsonContains('variation', $variation)
+            ->first();
+
+        if ($product) {
+            return response()->json(['price' => $product->price], 200);
+        } else {
+            $product = Product::where('id', $parentId)->firstOrFail();
+            if ($product) {
+                return response()->json(['price' => $product->price], 200);
+            } else {
+                return response()->json(['message' => 'Product not found'], 404);
+            }
+        }
     }
 }

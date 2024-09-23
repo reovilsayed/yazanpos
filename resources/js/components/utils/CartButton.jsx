@@ -1,4 +1,5 @@
 import React from "react";
+import { useCart } from "react-use-cart";
 
 const CartButton = ({
     cartDataValue,
@@ -6,6 +7,13 @@ const CartButton = ({
     supplierOption,
     categoryOption,
 }) => {
+    const {
+      isEmpty,
+      totalUniqueItems,
+      items,
+      updateItemQuantity,
+      removeItem,
+    } = useCart();
     return (
         <div>
             {/* Cart Button */}
@@ -20,7 +28,7 @@ const CartButton = ({
                     aria-controls="offcanvasExample"
                 >
                     <i className="fa fa-shopping-bag"></i>
-                    <sup> {cartDataValue?.length || 0}</sup>
+                    <sup> {totalUniqueItems || 0}</sup>
                 </button>
             </div>
             {/* Cart Button */}
@@ -44,19 +52,6 @@ const CartButton = ({
                     </sup>
                 </button>
             </div>
-            {/* Another Button */}
-            {/* full screen btn */}
-            {/* <div>
-                <button
-                    style={{ bottom: "20px", right: "190px", zIndex: 100 }}
-                    className="btn btn-warning btn-lg position-fixed"
-                    data-fullscreen="true"
-                    id="fullscreen"
-                >
-                    <i className="fa fa-expand"></i>
-                </button>
-            </div> */}
-            {/* full screen btn */}
         </div>
     );
 };

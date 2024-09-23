@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import image_url from "../../assets/no-image.jpg";
 import ProductDetailsModal from "../../utils/Modals/ProductDetailsModal/ProductDetailsModal";
 import "../../Styles/Products.css";
+import { useCart } from "react-use-cart";
 
 //!! -----------Style----------------
 // style
@@ -113,9 +114,8 @@ const Product = ({
     setBadge,
     play,
 }) => {
-    const active = cartDataValue.includes(
-        cartDataValue.find((item) => item.id === product.id)
-    );
+    const { addItem, removeItem, inCart } = useCart();
+    const active = inCart(product.id);
     return (
         <div
             className="col-lg-2 col-md-3 col-sm-3 col-6 my-hover-effect g-3"
@@ -125,22 +125,20 @@ const Product = ({
         >
             {/* Single Product  */}
             <div className="effect_products" style={productCardStyle}>
-                {cartDataValue?.map((cart, index) => {
-                    if (cart.id === product.id) {
-                        return (
-                            <button
-                                key={index}
-                                style={deleteBtnStyle}
-                                onClick={() => {
-                                    handelDeleteCartData(cart);
-                                    play();
-                                }}
-                            >
-                                <i className="fa fa-times"></i>
-                            </button>
-                        );
-                    }
-                })}
+                {inCart(product.id) ? (
+                    <button
+                        style={deleteBtnStyle}
+                        onClick={() => {
+                            removeItem(product.id);
+                            // handelDeleteCartData(cart);
+                            play();
+                        }}
+                    >
+                        <i className="fa fa-times"></i>
+                    </button>
+                ) : (
+                    ""
+                )}
 
                 <div
                     style={{
@@ -160,7 +158,8 @@ const Product = ({
                     {/* onClick={() => addToCart(product, 0)} */}
                     <div
                         onClick={() => {
-                            saveToLocalsStorage(product);
+                            // saveToLocalsStorage(product);
+                            addItem(product);
                             play();
                         }}
                         className="card-header position-relative"

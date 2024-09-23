@@ -4,6 +4,7 @@ import Products from "./ComponentsList/Products/Products";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
+import { CartProvider } from "react-use-cart";
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
     {
@@ -15,9 +16,11 @@ const router = createBrowserRouter([
 const Pos = () => {
     return (
         <div>
-            <QueryClientProvider client={queryClient}>
-                <RouterProvider router={router}></RouterProvider>
-            </QueryClientProvider>
+            <CartProvider>
+                <QueryClientProvider client={queryClient}>
+                    <RouterProvider router={router}></RouterProvider>
+                </QueryClientProvider>
+            </CartProvider>
         </div>
     );
 };

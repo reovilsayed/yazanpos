@@ -29,6 +29,7 @@
         "react-select": "^5.8.0",
         "react-spinners": "^0.13.8",
         "react-toastify": "^10.0.0",
+        "react-use-cart": "^1.14.0",
         "use-sound": "^4.0.1"
     }
 }
