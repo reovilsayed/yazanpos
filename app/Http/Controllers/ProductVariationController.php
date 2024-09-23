@@ -20,12 +20,7 @@ class ProductVariationController extends Controller
             'product_id' => $request->product_id,
         ]);
         return back()
-            ->with([
-                'message'    => "Attribute Added",
-                'target'     => "attribute",
-                'scroll'     => "scroll",
-                'alert-type' => 'success',
-            ]);
+        ->with('success', 'Attribute Added SuccessFull');
     }
 
     public function updateAttribue(Request $request)
@@ -36,12 +31,7 @@ class ProductVariationController extends Controller
             'value' => str_replace(' ', '_', $value),
         ]);
         return back()
-            ->with([
-                'message'    => "Attribute Updated",
-                'target'     => "attribute",
-                'scroll'     => "scroll",
-                'alert-type' => 'success',
-            ]);
+        ->with('success', 'Attribute update SuccessFull');
     }
 
     public function deleteProductAttribute(Attribute $attribute)
@@ -71,13 +61,7 @@ class ProductVariationController extends Controller
             'sku' => $product->sku,
         ]);
         return back()
-            ->with([
-                'message'    => "Product Added",
-                'target'     => "variation",
-                'scroll'     => "scroll",
-                'alert-type' => 'success',
-            ])
-            ->with('new-attribute', true);
+        ->with('success', 'Variation Added SuccessFull');
     }
 
     public function updateVariation(Request $request, Product $product)
@@ -101,13 +85,7 @@ class ProductVariationController extends Controller
         ]);
 
         return back()
-            ->with([
-                'message'    => "Product updated",
-                'target'     => "variation",
-                'scroll'     => "scroll",
-                'alert-type' => 'success',
-            ])
-            ->with('new-attribute', true);
+        ->with('success', 'Variation Update SuccessFull');
     }
 
     public function deleteProductMeta(Product $product)
@@ -163,11 +141,7 @@ class ProductVariationController extends Controller
             ]);
         }
         return back()
-            ->with([
-                'message'    => "Copied Successfully",
-                'alert-type' => 'success',
-
-            ]);
+        ->with('success', 'Copied Successfully');
     }
     public function create_all_variation(Product $product)
     {
@@ -189,23 +163,13 @@ class ProductVariationController extends Controller
         }
         Product::insert($data);
         return back()
-            ->with([
-                'message'    => "Variation added successfully",
-                'alert-type' => 'success',
-                'target'     => "variation",
-                'scroll'     => "scroll",
-            ]);
+        ->with('success', 'Variation added successfully');
     }
     public function delete_all_child(Product $product)
     {
         Product::where('parent_id', $product->id)->delete();
         return back()
-            ->with([
-                'message'    => "All variation deleted successfully",
-                'alert-type' => 'success',
-                'target'     => "variation",
-                'scroll'     => "scroll",
-            ]);
+        ->with('success', 'All variation deleted successfully');
     }
     private function cartesian_product($input)
     {

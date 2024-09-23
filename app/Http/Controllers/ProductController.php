@@ -24,7 +24,7 @@ class ProductController extends Controller
             return abort(403, 'You do not have permission to access the Product view.');
         }
         $minutes = 5;
-        $products = Product::with(['category', 'generic', 'supplier'])->filter()->latest()->paginate(30)->withQueryString();
+        $products = Product::with(['category', 'generic', 'supplier'])->whereNull('parent_id')->filter()->latest()->paginate(30)->withQueryString();
         $categories = Cache::remember('categories', $minutes, function () {
             return Category::all()->pluck('name', 'id')->toArray();
         });
