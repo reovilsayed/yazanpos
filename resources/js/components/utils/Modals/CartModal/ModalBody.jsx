@@ -9,12 +9,6 @@ const ModalBody = ({
     cartDataValue,
     setRefresh,
     refresh,
-    handelDeleteCartData,
-    cartQuantity,
-    setCartQuantity,
-    addToCart,
-    removeFromCart,
-    play,
     setCustomerDiscound,
     prescriptionData,
     totalPrice,
@@ -82,13 +76,6 @@ const ModalBody = ({
             </div>
 
             <div className="footer_body_modal">
-                {/* <ModalHeader
-                    prescriptionData={prescriptionData}
-                    cartDataValue={cartDataValue}
-                    totalPrice={totalPrice}
-                    selectedOptionHead={selectedOptionHead}
-                    setSelectedOptionHead={setSelectedOptionHead}
-                /> */}
                 <ModalFooter
                     totalDiscount={itemDiscounts.reduce(
                         (accumulator, currentValue) => {

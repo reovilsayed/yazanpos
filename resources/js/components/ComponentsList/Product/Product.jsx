@@ -106,12 +106,6 @@ const btnInfoStyle = {
 const Product = ({
     product,
     openProductDetailsModal,
-    saveToLocalsStorage,
-    cartDataValue,
-    handelDeleteCartData,
-    setAddGenericToFilter,
-    addGenericToFilter,
-    setBadge,
     play,
 }) => {
     const { addItem, removeItem, inCart } = useCart();
@@ -123,14 +117,12 @@ const Product = ({
                 cursor: "pointer",
             }}
         >
-            {/* Single Product  */}
             <div className="effect_products" style={productCardStyle}>
                 {inCart(product.id) ? (
                     <button
                         style={deleteBtnStyle}
                         onClick={() => {
                             removeItem(product.id);
-                            // handelDeleteCartData(cart);
                             play();
                         }}
                     >
@@ -148,17 +140,10 @@ const Product = ({
                         maxHeight: "auto",
                     }}
                     className="custom-card"
-
-                    // className={`custom-card ${
-                    //   cart.products[product.id] ? 'product-selected' : ''
-                    // } ${!product.hasQuantity() ? 'no-quantity' : ''}`}
                 >
                     <span style={badgeStyle}>{product?.price} Tk.</span>
-
-                    {/* onClick={() => addToCart(product, 0)} */}
                     <div
                         onClick={() => {
-                            // saveToLocalsStorage(product);
                             addItem(product);
                             play();
                         }}
@@ -173,11 +158,6 @@ const Product = ({
                             src={product?.image ? product?.image : image_url}
                             alt={product.name}
                         />
-                        {product?.unit ? (
-                            <span style={badgeStyle1}>{product?.unit}</span>
-                        ) : (
-                            ""
-                        )}
                     </div>
 
                     <div
@@ -192,7 +172,6 @@ const Product = ({
                             {product?.name.length > 15
                                 ? `${product.name.substring(0, 15)}...`
                                 : product.name}
-                            {/* {Str.limit(product.name, 15, '..')}{' '} */}
                             <small className="text-secondary">
                                 ({" "}
                                 {product?.category?.name
@@ -201,34 +180,8 @@ const Product = ({
                                 )
                             </small>
                         </p>
-
-                        <small
-                            // className={`${
-                            //   genericsInput.includes(product.generic_id) ? 'text-primary' : 'text-secondary'
-                            // }`}
-                            onClick={() =>
-                                setAddGenericToFilter(product.generic?.id)
-                            }
-                            style={cardBodySmallStyle}
-                            className="card-body-p"
-                        >
-                            {/* {Str.limit(product.generic?.name, 30)} */}
-                            {product?.generic?.name.length > 25
-                                ? `${product?.generic?.name.substring(
-                                      0,
-                                      25
-                                  )}....`
-                                : product?.generic?.name}
-                        </small>
-                        <small>({product?.strength})</small>
-
-                        <div>
-                            <small>{product?.supplier?.name}</small>
-                        </div>
-
                         <button
                             onClick={() => openProductDetailsModal(product)}
-                            // onClick={() => setProductDetails(product.id)}
                             className="btn btn-primary btn-sm position-absolute rounded-circle"
                             style={btnInfoStyle}
                         >
