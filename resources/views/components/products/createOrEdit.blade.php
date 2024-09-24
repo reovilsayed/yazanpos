@@ -8,11 +8,11 @@
                     <div class="card-body">
                         <h6 class="dash_head">Product Details</h6>
 
-                        <div class="row row-cols-2">
+                        <div class="row row-cols-1">
                             <x-form.input name="name" wire:model="name" label="Title *" value="{{ $product?->name }}"
                                 autofocus required />
-                            <x-form.input name="strength" wire:model="strength" label="Strength"
-                                value="{{ $product?->strength }}" />
+                            {{-- <x-form.input name="strength" wire:model="strength" label="Strength"
+                                value="{{ $product?->strength }}" /> --}}
 
                         </div>
 
@@ -22,17 +22,13 @@
 
                         </div>
 
-                    </div>
-                </div>
-                <div class="card mt-4">
-                    <div class="card-body">
                         <div class="row row-cols-2">
 
                             <x-form.input id="unit" name="unit" wire:model="unit" label="Unit"
                                 value="{{ $product?->unit }}" />
                             <x-form.input id="price" name="price" wire:model="price" label="Unit Price (Tk) *"
                                 value="{{ $product?->price }}" required />
-                            <x-form.input id="trade_price" name="trade_price" wire:model="trade_price"
+                            {{-- <x-form.input id="trade_price" name="trade_price" wire:model="trade_price"
                                 value="{{ $product?->trade_price }}" label="TP + Vat " />
 
 
@@ -43,13 +39,13 @@
 
                             <x-form.input name="box_price" wire:model="box_price" label="Box Price (Tk)"
                                 value="{{ $product?->box_price }}" />
-                            {{-- @if ($product?->sku)
+                            @if ($product?->sku)
                                 <x-form.input name="sku" wire:model="sku" label="Sku *"
                                     value="{{ $product?->sku }}" readonly />
-                            @endif --}}
+                            @endif
 
                             <x-form.input name="box_size" wire:model="box_size" label="Box Pattern"
-                                value="{{ $product?->box_size }}" />
+                                value="{{ $product?->box_size }}" /> --}}
 
 
                         </div>
@@ -100,18 +96,22 @@
                         <div class="row row-cols-2">
                             <x-form.input name="category" wire:model="category" value="{{ $product?->category?->id }}"
                                 type="select" label="Category" :options="$categories" />
-                            <x-form.input name="generic" wire:model="generic" value="{{ $product?->generic?->id }}"
+                            {{-- <x-form.input name="generic" wire:model="generic" value="{{ $product?->generic?->id }}"
                                 type="select" label="Generic" :options="$generics" />
                             <x-form.input name="supplier" value="{{ $product?->supplier?->id }}" type="select"
-                                label="Supplier" :options="$suppliers" />
+                                label="Supplier" :options="$suppliers" /> --}}
 
                             <x-form.input name="type" wire:model="type" value="{{ $product->type ?? '' }}"
                                 type="select" label="type" :options="[
-                                    'Medicine' => 'Medicine',
-                                    'Baby Care' => 'Baby Care',
-                                    'Condom' => 'Condom',
-                                    'Women Care' => 'Women Care',
-                                    'Device' => 'Device',
+                                    'Tops' => 'Tops',
+                                    'Bottoms' => 'Bottoms',
+                                    'Dresses' => 'Dresses',
+                                    'Outerwear' => 'Outerwear',
+                                    'Activewear' => 'Activewear',
+                                    'Underwear' => 'Underwear',
+                                    'Swimwear' => 'Swimwear',
+                                    'Footwear' => 'Footwear',
+                                    'Accessories' => 'Accessories',
                                 ]" />
                         </div>
                         <button class="btn btn-success" type="submit" style="float: right">
@@ -159,7 +159,8 @@
                             <input type="text" class="form-control mt-2 mb-2" name="attr_value"
                                 data-role="tagsinput"
                                 placeholder="Attribute value comma separated (e.g., red, yellow, white)" required>
-                            <button type="submit" class="btn btn-primary " title="save"><i class="fa fa-save"></i></button>
+                            <button type="submit" class="btn btn-primary " title="save"><i
+                                    class="fa fa-save"></i></button>
                         </div>
                     </form>
                     @foreach ($productAttributes as $product_attribute)
@@ -175,10 +176,11 @@
                                     placeholder="Attribute value comma separated (e.g., red, yellow, white)"
                                     value="{{ str_replace('_', ' ', $attribute_value) }}" required>
                                 <br>
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle"></i></button>
+                                <button type="submit" class="btn btn-primary"><i
+                                        class="fas fa-check-circle"></i></button>
                                 <a href="{{ route('delete.product.attribute', $product_attribute->id) }}"
-                                    class="remove_button btn btn-danger bg-danger text-white"
-                                    onclick="cskDelete()"><i class="fas fa-times-circle"></i></a>
+                                    class="remove_button btn btn-danger bg-danger text-white" onclick="cskDelete()"><i
+                                        class="fas fa-times-circle"></i></a>
                             </div>
                         </form>
                     @endforeach
@@ -210,7 +212,7 @@
                                     @foreach ($product->subproducts as $variable_product)
                                         <div class="accordion-item" id="question{{ $variable_product->id }}">
                                             <a class="accordion-link" href="#question{{ $variable_product->id }}">
-                               
+
                                                 <i class="icon ion-md-arrow-forward"></i>
                                                 <i class="icon ion-md-arrow-down"></i>
                                             </a>
@@ -223,7 +225,7 @@
                                                             <?php
                                                             $name = $product_attribute->name;
                                                             $csk = $variable_product->variation->$name ?? false;
-                                       
+                                                            
                                                             ?>
                                                             <div class="form-group col-md-4">
                                                                 <label
@@ -277,16 +279,16 @@
                                                                 style="width:100px">
                                                         </div>
                                                         <div class="form-group col-md-12 mt-2">
-                                                            <button class="btn btn-outline-primary"
-                                                                type="submit"><i class="far fa-plus-square"></i></button>
+                                                            <button class="btn btn-outline-primary" type="submit"><i
+                                                                    class="far fa-plus-square"></i></button>
                                                             <a href="{{ route('delete.product.meta', $variable_product->id) }}"
-                                                                class="btn  btn-danger"
-                                                                onclick="cskDelete()"><i class="fas fa-minus-circle"></i></a>
+                                                                class="btn  btn-danger" onclick="cskDelete()"><i
+                                                                    class="fas fa-minus-circle"></i></a>
                                                         </div>
                                                     </div>
                                                 </form>
                                             </div>
-                                          
+
                                         </div>
                                     @endforeach
                                 @endif

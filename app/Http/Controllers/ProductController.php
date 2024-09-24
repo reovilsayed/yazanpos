@@ -20,7 +20,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        if (!auth()->user()->role->hasPermissionTo('view product')){
+        if (!auth()->user()->role->hasPermissionTo('view product')) {
             return abort(403, 'You do not have permission to access the Product view.');
         }
         $minutes = 5;
@@ -63,7 +63,7 @@ class ProductController extends Controller
     // }
     public function createOrEdit(Request $request, Product $product = null)
     {
-        if (!$product && !auth()->user()->role->hasPermissionTo('create product')){
+        if (!$product && !auth()->user()->role->hasPermissionTo('create product')) {
             return abort(403, 'You do not have permission to access the create product.');
         }
         $variations = $request->session()->get('variation_array') ?? [];
@@ -72,11 +72,11 @@ class ProductController extends Controller
         $categories = Category::all()->pluck('name', 'id')->toArray();
         $suppliers = Supplier::all()->pluck('name', 'id')->toArray();
         $units = Unit::all()->pluck('name', 'id')->toArray();
-        if($product){
+        if ($product) {
 
             $product_attributes = Attribute::where('product_id', $product->id)->get();
-        }else{
-            $product_attributes=[];
+        } else {
+            $product_attributes = [];
         }
         if (!session()->has('target')) {
             session()->flash('target', 'attribute');
@@ -93,7 +93,7 @@ class ProductController extends Controller
     }
     public function save(Request $request, Product $product = null)
     {
-       
+
         $validated = $request->validate([
             'name' => 'required|string',
             'image' => 'nullable|image|max:1024',
@@ -137,17 +137,23 @@ class ProductController extends Controller
         $product->is_variable = $request->is_variable;
 
         if ($request->hasFile('image')) {
-            if ($product->image && Storage::exists($product->image)) {
-                Storage::delete($product->image);
+            if ($product->image && Storage::exists('public/' . $product->image)) {
+                Storage::delete('public/' . $product->image);
             }
-            // $product->image = $request->file('image')->store('product');
-            $product->image = $request->file('image')->store('products', 'public');
+
+            // Get the original file name
+            $fileName = $request->file('image')->getClientOriginalName();
+
+            // Move the file to the public/products directory and store the relative path
+            $request->file('image')->move(public_path('products'), $fileName);
+
+            // Save the relative path in the database (e.g., products/image.png)
+            $product->image = 'products/' . $fileName;
         }
 
         $product->save();
 
-        return redirect(route('products.createOrEdit',$product->id))->with('success','Product Created Successfully');
-  
+        return redirect(route('products.createOrEdit', $product->id))->with('success', 'Product Created Successfully');
     }
     public function duplicateProduct(Request $request)
     {
