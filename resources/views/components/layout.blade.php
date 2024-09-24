@@ -96,7 +96,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="search_box_mobile" id="m_srch_trigger_box">
+                    {{-- <div class="search_box_mobile" id="m_srch_trigger_box">
                         <div class="search_box_inner">
                             <form action="{{ route('products.index') }}" method="get">
                                 <input type="hidden" name="search[column]" value="name">
@@ -106,20 +106,7 @@
                                         alt="" /></span>
                             </form>
                         </div>
-                    </div>
-
-                    <div class="float_header_right">
-                        <div class="admin_panel panel_inline">
-
-
-                            <span class="text-center">Developed by <a href="https://sohojware.com/"
-                                    target="_blank">Sohojware
-                                    Team</a>, <br> Phone:
-                                <a href="https://wa.me/8801738324024" target="_blank">01738324024</a>
-                            </span>
-
-                        </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
 
