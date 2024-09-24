@@ -20,9 +20,9 @@ class Product extends Model
     {
         return Attribute::make(get: function ($value) {
             if (isset($this->attributes['image']) && $this->attributes['image'] && file_exists(public_path($this->attributes['image']))) {
-                return asset($this->attributes['image']);
+                return public_path($this->attributes['image']);
             } elseif (isset($this->category->image) && $this->category->image && file_exists(public_path('products/' . $this->category->image))) {
-                return asset('products/' . $this->category->image);
+                return public_path('products/' . $this->category->image);
             } else {
                 return asset('images/new/no-image.jpg');
             }
