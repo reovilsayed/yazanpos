@@ -4,7 +4,7 @@
     <div class="card-body">
         <h5 class="card-title">{{ $product->name }}</h5>
         <span class="badge bg-danger">{{ $product->category?->name }}</span>
-        @if ($product->generic)
+       {{--  @if ($product->generic)
             <span class="badge bg-primary">{{ $product->generic->name }}</span>
         @endif
         <span class="badge bg-success">{{ $product->strength }}</span>
@@ -14,7 +14,7 @@
             <div class="col-12">
                 <span class="card-text">Unit: {{ $product->unit }}</span>
             </div>
-        @endif
+        @endif --}}
         <div class="d-flex justify-content-between mb-2">
             <span class="card-text">Unit Sold: {{ $product->sold_unit }}</span>
             @if ($product->status)

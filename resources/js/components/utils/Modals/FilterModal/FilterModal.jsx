@@ -122,43 +122,6 @@ const FilterModal = ({
                             htmlFor="Generic"
                             style={{
                                 paddingBottom: "10px",
-                            }}
-                        >
-                            {" "}
-                            Generic
-                        </label>
-                        <Select
-                            placeholder="Select Your Value"
-                            isMulti
-                            defaultValue={genericOption}
-                            value={genericOption}
-                            onChange={setGenericOption}
-                            options={transformedOptions}
-                            onFocus={handelClose}
-                        />
-                        <label
-                            htmlFor="Generic"
-                            style={{
-                                paddingBottom: "10px",
-                                paddingTop: "10px",
-                            }}
-                        >
-                            {" "}
-                            Supplier
-                        </label>
-                        <Select
-                            placeholder="Select Your Value"
-                            isMulti
-                            defaultValue={supplierOption}
-                            value={supplierOption}
-                            onChange={setSupplierOption}
-                            options={transformedOptions1}
-                            onFocus={handelClose}
-                        />
-                        <label
-                            htmlFor="Generic"
-                            style={{
-                                paddingBottom: "10px",
                                 paddingTop: "10px",
                             }}
                         >

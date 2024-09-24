@@ -97,17 +97,13 @@ const btnInfoStyle = {
     fontSize: "10px",
     position: "absolute",
     right: "5px",
-    bottom: "50px",
+    bottom: "30px",
 };
 
 // style
 //!! -----------Style----------------
 
-const Product = ({
-    product,
-    openProductDetailsModal,
-    play,
-}) => {
+const Product = ({ product, openProductDetailsModal, play }) => {
     const { addItem, removeItem, inCart } = useCart();
     const active = inCart(product.id);
     return (
@@ -172,8 +168,14 @@ const Product = ({
                             {product?.name.length > 15
                                 ? `${product.name.substring(0, 15)}...`
                                 : product.name}
+                        </p>
+                        <p
+                            title={product.name}
+                            className="d-flex gap-2 "
+                            style={cardBodyPStyle}
+                        >
                             <small className="text-secondary">
-                                ({" "}
+                                (
                                 {product?.category?.name
                                     ? product?.category?.name
                                     : null}
