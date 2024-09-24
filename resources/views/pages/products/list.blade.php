@@ -61,20 +61,15 @@
                             <div class="row justify-content-between mb-3 align-items-center">
                                 <div class="col-md-5 col-6">
                                     @if (auth()->user()->role->hasPermissionTo('create product'))
-                                    <a class="btn btn-primary mb-1" href="{{ route('products.createOrEdit') }}"><i
-                                            class="fa fa-plus"></i>
-                                        New
-                                        product</a>
+                                        <a class="btn btn-primary mb-1" href="{{ route('products.createOrEdit') }}"><i
+                                                class="fa fa-plus"></i>
+                                            New
+                                            product</a>
                                     @endif
-                                    <a class="btn btn-info mb-1"
-                                        href="{{ route('products.index', ['search[column]' => 'type', 'search[query]' => 'Medicine']) }}">Medicine</a>
-                                    <a class="btn btn-info mb-1"
-                                        href="{{ route('products.index', ['search[column]' => 'type', 'search[query]' => 'Baby Care']) }}">Baby
-                                        Care</a>
-                                    <a class="btn btn-info mb-1"
-                                        href="{{ route('products.index', ['search[column]' => 'type', 'search[query]' => 'Device']) }}">Device</a>
-                                    <a class="btn btn-info mb-1"
-                                        href="{{ route('products.index', ['search[column]' => 'type', 'search[query]' => 'Condom']) }}">Condom</a>
+                                    @foreach (['Tops', 'Bottoms', 'Dresses', 'Outerwear', 'Activewear', 'Underwear', 'Swimwear', 'Footwear', 'Accessories'] as $item)
+                                        <a class="btn btn-info mb-1"
+                                            href="{{ route('products.index', ['search[column]' => 'type', 'search[query]' => $item]) }}">{{ $item }}</a>
+                                    @endforeach
 
                                 </div>
                                 <div class="col-md-5 col-6">

@@ -24,15 +24,15 @@
         {{ $product->sold_unit }}
     </td>
     <td>
-        Unit Price: {{ Settings::price($product->price) }} <br>
-        @if ($product->box_price)
+        Unit Price: {{ Settings::price($product->price) }}
+        {{--         @if ($product->box_price)
             Box Size: {{ $product->box_size }} <br>
             Box Price:{{ $product->box_price }} <br>
         @endif
         @if ($product->strip_price)
             Strip Price:{{ $product->strip_price }}
         @endif
-
+ --}}
     </td>
 
 

@@ -28,7 +28,7 @@
                 <p class="mb-0">Unit Price: </p>
                 <p class="card-text">{{ Settings::price($product->price) }}</p>
             </div>
-            @if ($product->box_price)
+            {{-- @if ($product->box_price)
                 <div class="box col ">
                     <p class="card-text">Box Size: </p>
                     <p class="card-text">{{ $product->box_size }}</p>
@@ -44,7 +44,7 @@
                     <p class="card-text">Strip Price:</p>
                     <p class="card-text">{{ Settings::price($product->strip_price) }}</p>
                 </div>
-            @endif
+            @endif --}}
         </div>
 
         <div class="d-flex gap-1 mt-3 justify-content-evenly">
