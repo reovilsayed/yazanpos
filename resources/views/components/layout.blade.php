@@ -43,7 +43,6 @@
                 font-weight: 500;
                 justify-content: space-between;
             }
-     
         </style>
         <title>{{ env('APP_NAME') }}</title>
         @stack('styles')
@@ -83,7 +82,7 @@
                             alt="" />
                     </a>
 
-                    <div class="search_panel">
+                    {{-- <div class="search_panel">
                         <span class="search_btn m_srch_trigger_btn" id="m_srch_trigger"><img
                                 src={{ asset('images/search.svg') }} alt="" /></span>
                         <form action="{{ route('products.index') }}" method="get">
@@ -96,7 +95,7 @@
                             </div>
                         </form>
                     </div>
-                    {{-- <div class="search_box_mobile" id="m_srch_trigger_box">
+                    <div class="search_box_mobile" id="m_srch_trigger_box">
                         <div class="search_box_inner">
                             <form action="{{ route('products.index') }}" method="get">
                                 <input type="hidden" name="search[column]" value="name">
@@ -223,7 +222,7 @@
                     beforeSend: addHeaders
                 }
             });
-              $('.products-generic-card .form-select').select2();
+            $('.products-generic-card .form-select').select2();
         </script>
         @livewireScripts
         @stack('script')
