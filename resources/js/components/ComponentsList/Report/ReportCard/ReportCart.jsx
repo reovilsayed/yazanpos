@@ -272,41 +272,6 @@ export const ReportCard = ({ data }) => {
                                 fontSize: "13px",
                             }}
                         >
-                            {" "}
-                            Total Generics
-                        </span>
-                        <span
-                            style={{
-                                textAlign: "center",
-                                width: "20%",
-                            }}
-                        >
-                            <HiArrowLongRight
-                                style={{
-                                    color: "#969191",
-                                }}
-                                size={16}
-                            />
-                        </span>
-                        <span
-                            style={{
-                                width: "40%",
-                                textAlign: "right",
-                                color: "#646464",
-                            }}
-                        >
-                            {data?.total_generics}
-                        </span>
-                    </div>
-                    <div className="d-flex justify-content-between align-items-center pt-3">
-                        <span
-                            className="hover_blue"
-                            style={{
-                                width: "40%",
-                                color: "#646464",
-                                fontSize: "13px",
-                            }}
-                        >
                             Total Categories
                         </span>
                         <span
