@@ -56,7 +56,7 @@ export const ReportCard = ({ data }) => {
                                 fontWeight: 600,
                             }}
                         >
-                            {data?.data?.total_amount.toFixed(2)} Tk
+                            {data?.total_amount.toFixed(2)} Tk
                         </span>
                     </div>
                     <div className="d-flex justify-content-between align-items-center ">
@@ -90,7 +90,7 @@ export const ReportCard = ({ data }) => {
                                 color: "#646464",
                             }}
                         >
-                            {data?.data?.total_revenue.toFixed(2)} Tk
+                            {data?.total_revenue.toFixed(2)} Tk
                         </span>
                     </div>
                     <div className="d-flex justify-content-between pt-3">
@@ -119,7 +119,7 @@ export const ReportCard = ({ data }) => {
                                 color: "#646464",
                             }}
                         >
-                            {data?.data?.due_total.toFixed(2)} Tk
+                            {data?.due_total.toFixed(2)} Tk
                         </span>
                     </div>
                 </div>
@@ -165,7 +165,7 @@ export const ReportCard = ({ data }) => {
                                 fontWeight: 600,
                             }}
                         >
-                            {data?.data?.total_orders}
+                            {data?.total_orders}
                         </span>
                     </div>
                     <div className="d-flex justify-content-between">
@@ -199,7 +199,7 @@ export const ReportCard = ({ data }) => {
                                 color: "#646464",
                             }}
                         >
-                            {data?.data?.due_orders}
+                            {data?.due_orders}
                         </span>
                     </div>
                 </div>
@@ -260,7 +260,7 @@ export const ReportCard = ({ data }) => {
                                 color: "#646464",
                             }}
                         >
-                            {data?.data?.total_customers}
+                            {data?.total_customers}
                         </span>
                     </div>
                     <div className="d-flex justify-content-between align-items-center pt-3">
@@ -295,7 +295,7 @@ export const ReportCard = ({ data }) => {
                                 color: "#646464",
                             }}
                         >
-                            {data?.data?.total_generics}
+                            {data?.total_generics}
                         </span>
                     </div>
                     <div className="d-flex justify-content-between align-items-center pt-3">
@@ -329,7 +329,7 @@ export const ReportCard = ({ data }) => {
                                 color: "#646464",
                             }}
                         >
-                            {data?.data?.total_categories}
+                            {data?.total_categories}
                         </span>
                     </div>
                     <div className="d-flex justify-content-between align-items-center pt-3">
@@ -359,7 +359,7 @@ export const ReportCard = ({ data }) => {
                             }}
                         >
                             {" "}
-                            {data?.data?.total_suppliers}
+                            {data?.total_suppliers}
                         </span>
                     </div>
                 </div>

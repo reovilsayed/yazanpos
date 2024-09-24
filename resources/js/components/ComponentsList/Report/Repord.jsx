@@ -127,9 +127,7 @@ const Report = () => {
                                         }}
                                     >
                                         <CustomerTable
-                                            customerData={
-                                                data?.data?.top_customers
-                                            }
+                                            customerData={data?.top_customers}
                                         />
                                     </div>
                                 </div>
@@ -183,7 +181,7 @@ const Report = () => {
                                     >
                                         <TopSellingTable
                                             sellingData={
-                                                data?.data?.top_selling_products
+                                                data?.top_selling_products
                                             }
                                         />
                                     </div>
@@ -237,9 +235,7 @@ const Report = () => {
                                         }}
                                     >
                                         <TopSupplierTable
-                                            SupplierData={
-                                                data?.data?.top_suppliers
-                                            }
+                                            SupplierData={data?.top_suppliers}
                                         />
                                     </div>
                                 </div>
@@ -289,9 +285,7 @@ const Report = () => {
                                         }}
                                     >
                                         <TopDueCustomerTable
-                                            dueData={
-                                                data?.data?.top_due_customers
-                                            }
+                                            dueData={data?.top_due_customers}
                                         />
                                     </div>
                                 </div>
