@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { axiosInstance } from "../Axios/axiosInstance";
+import axios from "axios";
 
 const useFetch = (key, url, body, options = {}) => {
     const { prefetch, pagePrefetchKey, ...configOptions } = options;
@@ -63,10 +64,19 @@ const useFetch = (key, url, body, options = {}) => {
 export const usePost = (key, url, body, options = {}) => {
     const { prefetch, pagePrefetchKey, ...configOptions } = options;
     const queryClient = useQueryClient();
+    const fetchData = async () => {
+        const response = await axios.post(`${url}`, body, {
+            headers: {
+                "Content-Type": "application/json",
+                "X-Secret-Key": "pos_password",
+            },
+        });
+        return response.data;
+    };
 
     const { data, isLoading, isError, isSuccess, error } = useQuery(
         key,
-        () => axiosInstance.post(url, body),
+        fetchData,
         {
             ...configOptions,
         }
