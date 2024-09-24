@@ -131,7 +131,7 @@
                         </a>
                     </li>
                 @endif
-                @if (auth()->user()->role->hasPermissionTo('view generic'))
+                {{-- @if (auth()->user()->role->hasPermissionTo('view generic'))
                     <li
                         class="dropdown-item {{ request()->route()->getName() == 'generics.index' ? 'drop-item-active' : '' }}">
                         <a href="{{ route('generics.index') }}" style="padding-left: 0px;">
@@ -139,7 +139,7 @@
                             Generics
                         </a>
                     </li>
-                @endif
+                @endif --}}
             </ul>
         </li>
         @if (auth()->user()->role->hasPermissionTo('view purchase'))
