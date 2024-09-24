@@ -2,9 +2,9 @@
 @section('content')
     <div class="login_pages_contents_inr11">
         <div class="login_pages_contents_inr text-center">
-            <a href="{{ route('login') }}">
+            {{-- <a href="{{ route('login') }}">
                 <img src="{{ asset('logo/logo.gif') }}" style="width: 400px" alt=""></a>
-            {{-- <img src="{{ @$setting->logo ? Storage::url($setting->logo) : asset('images/logo.png') }}" alt=""></a> --}}
+            <img src="{{ @$setting->logo ? Storage::url($setting->logo) : asset('images/logo.png') }}" alt=""></a> --}}
             <div class="login_pages_contents_hdngg">
                 <h5>Login</h5>
                 <p>Welcome back! please enter your details</p>
@@ -17,7 +17,7 @@
                             <div class="input_form_holderr">
                                 <h6>Email Address Or Phone Number</h6>
                                 <input type="text" class="w-100 @error('email') is-invalid @enderror" id="email"
-                                    placeholder="company@example.com" name="email" value="{{old('email')}}">
+                                    placeholder="company@example.com" name="email" value="{{ old('email') }}">
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
