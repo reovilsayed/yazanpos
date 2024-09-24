@@ -18,155 +18,118 @@ const PaymentModal = ({
     setSelectedOptionHead,
 }) => {
     const { items, totalItems, cartTotal, emptyCart } = useCart();
-
     const [status, setStatus] = useState("Unpaid");
     const [notes, setNotes] = useState("");
     const [loading, setLoading] = useState(false);
     const [dueAmount, setDueAmount] = useState(grand_total);
-
     const [discountType, setDiscountType] = useState("Fixed");
     const [customDiscount, setCustomDiscount] = useState(0.0);
-    const handleCustomDiscount = (event) => {
-        const { value } = event.target;
-        let newDiscount = parseFloat(value);
-        if (isNaN(newDiscount) || newDiscount < 0) {
-            newDiscount = 0;
-        }
-        const discountPrice =
-            newDiscount > 0
-                ? calculateDiscount(
-                      grand_total,
-                      newDiscount,
-                      discountType === "Percentage"
-                  )
-                : grand_total;
+    const [paymentFields, setPaymentFields] = useState([
+        { paymentType: "Cash", received: 0 },
+    ]);
 
-        if (discountPrice > grand_total) return;
-        setCustomDiscount(grand_total - discountPrice);
-        setDueAmount((prev) =>
-            prev > discountPrice ? prev - discountPrice : 0
-        );
-    };
-    const handleDiscountType = (value) => {
-        const discountPrice =
-            discount > 0
-                ? calculateDiscount(
-                      grand_total,
-                      discount,
-                      value === "Percentage"
-                  )
-                : grand_total;
-        if (discountPrice > grand_total) return;
-        setCustomDiscount(grand_total - discountPrice);
-        setDueAmount((prev) =>
-            prev > discountPrice ? prev - discountPrice : 0
-        );
-        setDiscountType(value);
-        toggleDropdown();
-    };
     const [sowDiscountTypeDropdown, setSowDiscountTypeDropdown] =
         useState(false);
     const toggleDropdown = () => setSowDiscountTypeDropdown((prev) => !prev);
 
-    const [paymentFields, setPaymentFields] = useState([
-        {
-            paymentType: "Cash",
-            received: 0,
-        },
-    ]);
+    // Centralized useEffect to handle discount and payment updates
+    useEffect(() => {
+        const totalPaid = paymentFields.reduce(
+            (sum, field) => sum + (parseFloat(field.received) || 0),
+            0
+        );
 
+        // Calculate the discount
+        var discount = 0;
+        if (customDiscount > 0) {
+            discount =
+                discountType === "Percentage"
+                    ? (grand_total * customDiscount) / 100.0
+                    : customDiscount;
+        }
+        // Calculate the due amount
+        const newDueAmount = grand_total - discount - totalPaid;
+
+        setDueAmount(newDueAmount > 0 ? newDueAmount : 0);
+
+        // Update the status
+        setStatus(
+            totalPaid > 0 ? (newDueAmount > 0 ? "Due" : "Paid") : "Unpaid"
+        );
+    }, [grand_total, customDiscount, discountType, paymentFields]);
+
+    // Handle custom discount changes
+    const handleCustomDiscount = (event) => {
+        const { value } = event.target;
+        let newDiscount = parseFloat(value);
+        if (isNaN(newDiscount) || newDiscount < 0) newDiscount = 0;
+        setCustomDiscount(newDiscount);
+    };
+
+    // Handle discount type toggle
+    const handleDiscountType = (value) => {
+        setDiscountType(value);
+        toggleDropdown();
+    };
+
+    // Payment field management
     const addPaymentField = () => {
-        var tmp = paymentFields;
-        tmp.push({
-            paymentType: "Cash",
-            received: 0,
-        });
-        var newReceived = 0;
-        tmp = tmp.map((item, index) => {
-            if (index < tmp.length - 1) {
-                newReceived = grand_total - item.received;
-                newReceived =
-                    newReceived > customDiscount
-                        ? newReceived - customDiscount
-                        : newReceived;
-                return item;
-            }
-            return { ...item, received: newReceived };
-        });
-        setPaymentFields(tmp);
-        setDueAmount(0);
+        setPaymentFields([
+            ...paymentFields,
+            { paymentType: "Cash", received: dueAmount },
+        ]);
     };
 
     const removePaymentField = (index) => {
-        var tmp = paymentFields;
-        tmp = tmp.filter((item, itemIndex) => itemIndex !== index);
-        setPaymentFields(tmp);
+        const updatedFields = paymentFields.filter(
+            (_, itemIndex) => itemIndex !== index
+        );
+        setPaymentFields(updatedFields);
     };
 
     const updatePaymentField = (index, value) => {
-        var paid = 0;
-        var tmp = paymentFields.map((item, itemIndex) => {
-            if (itemIndex === index) {
-                paid += value;
-                return {
-                    ...item,
-                    received: value,
-                };
-            }
-            paid += item.received;
-            return item;
-        });
-        setPaymentFields(tmp);
-        setDueAmount(grand_total > paid ? grand_total - paid : 0);
+        const updatedFields = paymentFields.map((item, itemIndex) =>
+            itemIndex === index
+                ? { ...item, received: parseFloat(value) || 0 }
+                : item
+        );
+        setPaymentFields(updatedFields);
     };
 
     const updatePaymentFieldType = (index, value) => {
-        var tmp = paymentFields.map((item, itemIndex) => {
-            if (itemIndex === index) {
-                return {
-                    ...item,
-                    paymentType: value,
-                };
-            }
-            return item;
-        });
-        setPaymentFields(tmp);
-    };
-    const handelPaymentStatus = (e) => {
-        setStatus(e.target.value);
+        const updatedFields = paymentFields.map((item, itemIndex) =>
+            itemIndex === index ? { ...item, paymentType: value } : item
+        );
+        setPaymentFields(updatedFields);
     };
 
-    useEffect(() => {
-        var received = paymentFields.reduce((accumulator, currentValue) => {
-            return accumulator + (currentValue?.received ?? 0.0);
-        }, 0);
-        setStatus(received > 0 ? (dueAmount > 0 ? "Due" : "Paid") : "Unpaid");
-    }, [paymentFields]);
-
-    const payment_request = async () => {
+    // Handle payment submission
+    const paymentRequest = async () => {
         setLoading(true);
-        var received = paymentFields.reduce((accumulator, currentValue) => {
-            return accumulator + Number(currentValue?.received ?? 0.0);
-        }, 0);
-        var change_amount =
-            grand_total - (totalDiscount + customDiscount) - received;
+        const totalPaid = paymentFields.reduce(
+            (acc, current) => acc + parseFloat(current.received || 0),
+            0
+        );
+        const changeAmount = grand_total - (customDiscount + totalPaid);
+
         const paymentInfo = {
-            pay_amount: Number(grand_total),
-            received_amount: received,
-            change_amount: change_amount > 0 ? change_amount : 0.0,
+            pay_amount: grand_total,
+            received_amount: totalPaid,
+            change_amount: changeAmount > 0 ? changeAmount : 0,
             due_amount: dueAmount,
             status,
             customer_id: selectedOptionHead.value
-                ? selectedOptionHead?.value
+                ? selectedOptionHead.value
                 : prescriptionData?.customer?.id,
             notes,
             split_payment: paymentFields,
         };
+
         const cartInfo = {
             products: items,
-            discount: Number(totalDiscount + customDiscount) ?? 0,
-            total: Number(cartTotal - (totalDiscount + customDiscount)),
-            sub_total: Number(cartTotal),
+            discount: customDiscount ?? 0,
+            total: grand_total - customDiscount,
+            sub_total: cartTotal,
             total_quantity: totalItems,
         };
 
@@ -182,7 +145,7 @@ const PaymentModal = ({
         });
 
         const data = await response.json();
-        toast.success("Oder Success");
+        toast.success("Order Success");
         emptyCart();
         resetDiscountItems();
         setSelectedOptionHead("");
@@ -254,14 +217,11 @@ const PaymentModal = ({
                                                                         disabled
                                                                         type="number"
                                                                         className="form-control"
-                                                                        value={
-                                                                            dueAmount -
-                                                                                customDiscount >
-                                                                            0
-                                                                                ? dueAmount -
-                                                                                  customDiscount
-                                                                                : 0
-                                                                        }
+                                                                        value={parseFloat(
+                                                                            dueAmount
+                                                                        ).toFixed(
+                                                                            2
+                                                                        )}
                                                                     />
                                                                     <span className="input-group-text bg-light">
                                                                         Tk
@@ -280,9 +240,6 @@ const PaymentModal = ({
                                                                     name="payment_status"
                                                                     className="form-control"
                                                                     disabled
-                                                                    onChange={
-                                                                        handelPaymentStatus
-                                                                    }
                                                                     value={
                                                                         status
                                                                     }
@@ -623,7 +580,7 @@ const PaymentModal = ({
                                                 ? "btn-secondary"
                                                 : "btn-primary"
                                         }`}
-                                        onClick={payment_request}
+                                        onClick={paymentRequest}
                                         disabled={dueAmount > 0 || loading}
                                     >
                                         {loading
