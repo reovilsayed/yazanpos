@@ -322,8 +322,8 @@ class ApiController extends Controller
             return [
                 'product_id' => $product->id,
                 'product_name' => $product->name,
-                'product_strenght' => $product->strenght,
-                'product_category' => $product->category->name,
+                // 'product_strenght' => $product->strenght,
+                'product_category' => $product->category->name ?? '',
                 'total_price' => $product->orders->sum('pivot.price'),
             ];
         };
