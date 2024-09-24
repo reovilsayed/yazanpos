@@ -19,16 +19,15 @@ class Product extends Model
     public function imageUrl(): Attribute
     {
         return Attribute::make(get: function ($value) {
-            if (isset($this->attributes['image']) && $this->attributes['image'] && file_exists(public_path($this->attributes['image']))) {
-                return public_path($this->attributes['image']);
-            } elseif (isset($this->category->image) && $this->category->image && file_exists(public_path('products/' . $this->category->image))) {
-                return public_path('products/' . $this->category->image);
+            if (isset($this->attributes['image']) && $this->attributes['image'] && Storage::exists($this->attributes['image'])) {
+                return Storage::url($this->attributes['image']);
+            } elseif (isset($this->category->image) && $this->category->image && Storage::exists($this->category->image)) {
+                return Storage::url($this->category->image);
             } else {
                 return asset('images/new/no-image.jpg');
             }
         });
     }
-
 
     public function image(): Attribute
     {
