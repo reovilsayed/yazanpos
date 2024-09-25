@@ -132,40 +132,39 @@
                     </li>
                 @endif
                 {{-- @if (auth()->user()->role->hasPermissionTo('view generic'))
-                    <li
-                        class="dropdown-item {{ request()->route()->getName() == 'generics.index' ? 'drop-item-active' : '' }}">
-                        <a href="{{ route('generics.index') }}" style="padding-left: 0px;">
-                            <img src="{{ asset('images/generic-icon.svg') }}" alt="" style="width: 16px">
-                            Generics
-                        </a>
+                                <li
+                                    class="dropdown-item {{ request()->route()->getName() == 'generics.index' ? 'drop-item-active' : '' }}">
+                                    <a href="{{ route('generics.index') }}" style="padding-left: 0px;">
+                                        <img src="{{ asset('images/generic-icon.svg') }}" alt="" style="width: 16px">
+                                        Generics
+                                    </a>
+                                </li>
+                            @endif
+                        </ul>
                     </li>
-                @endif
+                    @if (auth()->user()->role->hasPermissionTo('view purchase'))
+                        <x-sidenav.nav name="Purchase" :active="request()->is('purchase') ? 'menu-active' : ''" :href="route('purchase.index')" :icon="[asset('images/cart-arrow-down-icon.svg'), asset('images/cart-arrow-down-icon-white.svg')]" />
+                    @endif
+                --}}
             </ul>
+
+            <x-sidenav.nav name="Settings" :active="request()->is('settings/create') ? 'menu-active' : ''" :href="route('settings.create')" :icon="[asset('images/setting-icon.svg'), asset('images/setting-icon-white.svg')]" />
+            {{-- <x-sidenav.nav name="prescriptions" :active="request()->is('priscription') ? 'menu-active' : ''" :href="route('priscription.index')" :icon="[asset('images/prescription-icon.svg'), asset('images/prescription-icon.svg')]" /> --}}
+            @if (auth()->user()->role->hasPermissionTo('view role'))
+                <x-sidenav.nav name="roles" :active="request()->is('roles') ? 'menu-active' : ''" :href="route('roles.index')" :icon="[asset('images/role.png'), asset('images/role.png')]" />
+            @endif
+
+        <li>
+            <a href="#" class="logout-trigger">
+                <i>
+                    <img src={{ asset('images/nav7.png') }} alt="" />
+                    <img src={{ asset('images/nav7_hov.png') }} alt="" />
+                </i>
+
+                <span>Logout</span>
+            </a>
         </li>
-        @if (auth()->user()->role->hasPermissionTo('view purchase'))
-            <x-sidenav.nav name="Purchase" :active="request()->is('purchase') ? 'menu-active' : ''" :href="route('purchase.index')" :icon="[asset('images/cart-arrow-down-icon.svg'), asset('images/cart-arrow-down-icon-white.svg')]" />
-        @endif
- --}}
-
-                <x-sidenav.nav name="Settings" :active="request()->is('settings/create') ? 'menu-active' : ''" :href="route('settings.create')" :icon="[asset('images/setting-icon.svg'), asset('images/setting-icon-white.svg')]" />
-                {{-- <x-sidenav.nav name="prescriptions" :active="request()->is('priscription') ? 'menu-active' : ''" :href="route('priscription.index')" :icon="[asset('images/prescription-icon.svg'), asset('images/prescription-icon.svg')]" /> --}}
-                @if (auth()->user()->role->hasPermissionTo('view role'))
-                    <x-sidenav.nav name="roles" :active="request()->is('roles') ? 'menu-active' : ''" :href="route('roles.index')" :icon="[asset('images/role.png'), asset('images/role.png')]" />
-                @endif
-
-                <li>
-                    <a href="#" class="logout-trigger">
-                        <i>
-                            <img src={{ asset('images/nav7.png') }} alt="" />
-                            <img src={{ asset('images/nav7_hov.png') }} alt="" />
-                        </i>
-
-                        <span>Logout</span>
-                    </a>
-                </li>
-
-
-            </ul>
+    </ul>
 </div>
 
 <script>
