@@ -6382,9 +6382,9 @@ select::-ms-expand {
         background-size: 12px;
     }
 
-    .rt_box .vr_grid_box {
+    /* .rt_box .vr_grid_box {
         margin-top: 40px;
-    }
+    } */
 
     .chart {
         min-height: auto !important;
