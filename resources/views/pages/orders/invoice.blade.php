@@ -14,7 +14,7 @@
                             </div>
                         @endif
                         <hr class="mt-3 mb-4">
-                      
+
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="text-muted">
@@ -26,7 +26,7 @@
                                     <p>{{ $order->customer->phone }}</p>
                                 </div>
                             </div>
-                         
+
                             <div class="col-sm-6">
                                 <div class="text-muted text-sm-end">
                                     <div>
@@ -37,12 +37,12 @@
                                         <h5 class="font-size-15 mb-1">Invoice Date:</h5>
                                         <p>{{ $order->created_at->format('d-M-y') }}</p>
                                     </div>
-                                
+
                                 </div>
                             </div>
-            
+
                         </div>
-                     
+
 
                         <div class="py-2">
                             <h5 class="font-size-15">Order Summary</h5>
@@ -65,15 +65,23 @@
                                                 <th scope="row">{{ $product->id }}</th>
                                                 <td>
                                                     <div>
-                                                        <h5 class="text-truncate font-size-14 mb-1">{{ $product->name }} {{ $product->strength }}
+                                                        <h5 class="text-truncate font-size-14 mb-1">
+                                                            {{ $product->name ?? ($product->pivot->name ?? '') }}
                                                         </h5>
-                                                        <p class="text-muted mb-0">{{ $product->category->name }},{{ $product->generic->name }},
-                                                            {{ $product->supplier->name }}</p>
+                                                        <p class="text-muted mb-0">
+                                                            @if ($product->category != null || $product->supplier != null)
+                                                                {{ $product->category->name ?? '' }},{{ $product->supplier->name ?? '' }}
+                                                            @else
+                                                                Custom Product
+                                                            @endif
+                                                        </p>
                                                     </div>
                                                 </td>
                                                 <td>{{ $product->pivot->quantity }}</td>
                                                 <td class="text-end">{{ Settings::price($product->pivot->price) }}</td>
-                                                <td class="text-end">{{ Settings::price($product->pivot->price * $product->pivot->quantity) }}</td>
+                                                <td class="text-end">
+                                                    {{ Settings::price($product->pivot->price * $product->pivot->quantity) }}
+                                                </td>
                                             </tr>
                                         @endforeach
                                         <tr>
