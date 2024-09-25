@@ -58,37 +58,82 @@ class OrderController extends Controller
     public function getChartDataMonth()
     {
         $earnings = Earnings::range(now()->subMonths(12), now())->graph('Month');
-
-        if (count($earnings) > 0) {
-            $months = [
-                'January',
-                'February',
-                'March',
-                'April',
-                'May',
-                'June',
-                'July',
-                'Augest',
-                'September',
-                'October',
-                'November',
-                'December'
-            ];
-
-            $data = [
-                'sales' => [],
-                'profit' => [],
-            ];
-
-            foreach ($months as $month => $index) {
-                $data['sales'][] = $earnings[$index]['month'] == $month ? $earnings[$index]['sales'] : 0;
-                $data['profit'][] = $earnings[$index]['month'] == $month ? $earnings[$index]['total_profit'] : 0;
+        $data = [
+            [
+                'month' => 'January',
+                'sales' => 0,
+                'profit' => 0,
+            ],
+            [
+                'month' => 'February',
+                'sales' => 0,
+                'profit' => 0,
+            ],
+            [
+                'month' => 'March',
+                'sales' => 0,
+                'profit' => 0,
+            ],
+            [
+                'month' => 'April',
+                'sales' => 0,
+                'profit' => 0,
+            ],
+            [
+                'month' => 'May',
+                'sales' => 0,
+                'profit' => 0,
+            ],
+            [
+                'month' => 'June',
+                'sales' => 0,
+                'profit' => 0,
+            ],
+            [
+                'month' => 'July',
+                'sales' => 0,
+                'profit' => 0,
+            ],
+            [
+                'month' => 'Augest',
+                'sales' => 0,
+                'profit' => 0,
+            ],
+            [
+                'month' => 'September',
+                'sales' => 0,
+                'profit' => 0,
+            ],
+            [
+                'month' => 'October',
+                'sales' => 0,
+                'profit' => 0,
+            ],
+            [
+                'month' => 'November',
+                'sales' => 0,
+                'profit' => 0,
+            ],
+            [
+                'month' => 'December',
+                'sales' => 0,
+                'profit' => 0,
+            ],
+        ];
+        foreach ($earnings as $earning) {
+            $month = $earning['month'];
+            $sales = $earning['sales'] ?? 0;
+            $profit = $earning['total_profit'] ?? 0;
+            foreach ($data as $index => $monthData) {
+                if ($monthData['month'] == $month) {
+                    $data[$index]['sales'] = $sales;
+                    $data[$index]['profit'] = $profit;
+                    break;
+                }
             }
-        } else {
-            $data = ['sales' => [], 'profit' => []];
         }
 
-        return response()->json(['data' => $data]);
+        return response()->json(['data' => ['sales' => array_map(fn($item) => $item['sales'], $data), 'profit' => array_map(fn($item) => $item['profit'], $data)]]);
     }
     /**
      * Show the form for creating a new resource.
