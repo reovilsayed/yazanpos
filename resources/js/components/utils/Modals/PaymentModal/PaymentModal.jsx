@@ -24,6 +24,7 @@ const PaymentModal = ({
     const [dueAmount, setDueAmount] = useState(grand_total);
     const [discountType, setDiscountType] = useState("Fixed");
     const [customDiscount, setCustomDiscount] = useState(0.0);
+    const [customDiscountAmount, setCustomDiscountAmount] = useState(0.0);
     const [paymentFields, setPaymentFields] = useState([
         { paymentType: "Cash", received: 0 },
     ]);
@@ -50,7 +51,8 @@ const PaymentModal = ({
         // Calculate the due amount
         const newDueAmount = grand_total - discount - totalPaid;
 
-        setDueAmount(newDueAmount > 0 ? newDueAmount : 0);
+        setDueAmount(newDueAmount > 0 ? newDueAmount.toFixed(2) : 0);
+        setCustomDiscountAmount(discount);
 
         // Update the status
         setStatus(
@@ -63,6 +65,7 @@ const PaymentModal = ({
         const { value } = event.target;
         let newDiscount = parseFloat(value);
         if (isNaN(newDiscount) || newDiscount < 0) newDiscount = 0;
+        if (newDiscount > grand_total - totalDiscount) return;
         setCustomDiscount(newDiscount);
     };
 
@@ -110,7 +113,7 @@ const PaymentModal = ({
             (acc, current) => acc + parseFloat(current.received || 0),
             0
         );
-        const changeAmount = grand_total - (customDiscount + totalPaid);
+        const changeAmount = grand_total - (customDiscountAmount + totalPaid);
 
         const paymentInfo = {
             pay_amount: grand_total,
@@ -127,8 +130,8 @@ const PaymentModal = ({
 
         const cartInfo = {
             products: items,
-            discount: customDiscount ?? 0,
-            total: grand_total - customDiscount,
+            discount: customDiscountAmount ?? 0,
+            total: grand_total - customDiscountAmount,
             sub_total: cartTotal,
             total_quantity: totalItems,
         };
@@ -197,7 +200,7 @@ const PaymentModal = ({
                                                                         className="form-control"
                                                                         value={
                                                                             grand_total -
-                                                                            customDiscount
+                                                                            customDiscountAmount
                                                                         }
                                                                     />
                                                                     <span className="input-group-text bg-light">
@@ -314,7 +317,10 @@ const PaymentModal = ({
                                                                             }
                                                                             className="form-control"
                                                                             value={
-                                                                                item.received
+                                                                                item.received >
+                                                                                0.0
+                                                                                    ? item.received
+                                                                                    : ""
                                                                             }
                                                                         />
                                                                     </div>
@@ -399,8 +405,14 @@ const PaymentModal = ({
                                                             onChange={
                                                                 handleCustomDiscount
                                                             }
+                                                            value={
+                                                                customDiscount >
+                                                                0.0
+                                                                    ? customDiscount
+                                                                    : ""
+                                                            }
                                                             placeholder={`Enter discount in ${discountType.toLowerCase()} amount`}
-                                                            aria-label="Text input with segmented  "
+                                                            aria-label="Text input with segmented"
                                                         />
                                                     </div>
 
@@ -451,10 +463,16 @@ const PaymentModal = ({
                                                                     <th>
                                                                         Product
                                                                     </th>
-                                                                    <th>Qty</th>
+                                                                    <th>
+                                                                        Unit
+                                                                        Price
+                                                                    </th>
                                                                     <th>
                                                                         Sub
                                                                         Total
+                                                                    </th>
+                                                                    <th>
+                                                                        Discount
                                                                     </th>
                                                                     <th>
                                                                         Total
@@ -480,8 +498,9 @@ const PaymentModal = ({
                                                                                 {
                                                                                     product?.name
                                                                                 }
-                                                                            </td>
-                                                                            <td>
+                                                                                {
+                                                                                    " X "
+                                                                                }
                                                                                 {
                                                                                     product?.quantity
                                                                                 }
@@ -489,7 +508,28 @@ const PaymentModal = ({
                                                                             <td>
                                                                                 <span>
                                                                                     {Number(
+                                                                                        product?.price
+                                                                                    ).toFixed(
+                                                                                        2
+                                                                                    )}{" "}
+                                                                                    Tk.
+                                                                                </span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span>
+                                                                                    {Number(
                                                                                         product?.itemTotal
+                                                                                    ).toFixed(
+                                                                                        2
+                                                                                    )}{" "}
+                                                                                    Tk.
+                                                                                </span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span>
+                                                                                    {Number(
+                                                                                        product?.discount ??
+                                                                                            0
                                                                                     ).toFixed(
                                                                                         2
                                                                                     )}{" "}
@@ -539,11 +579,34 @@ const PaymentModal = ({
                                                                     <span>
                                                                         {" "}
                                                                         {parseFloat(
-                                                                            totalDiscount +
-                                                                                customDiscount
+                                                                            totalDiscount
                                                                         ).toFixed(
                                                                             2
-                                                                        )}{" "}
+                                                                        )}
+                                                                        {customDiscount >
+                                                                        0.0 ? (
+                                                                            <>
+                                                                                {
+                                                                                    " + "
+                                                                                }
+                                                                                {parseFloat(
+                                                                                    customDiscountAmount
+                                                                                ).toFixed(
+                                                                                    2
+                                                                                )}
+                                                                                {
+                                                                                    " = "
+                                                                                }
+                                                                                {parseFloat(
+                                                                                    totalDiscount +
+                                                                                        customDiscountAmount
+                                                                                ).toFixed(
+                                                                                    2
+                                                                                )}
+                                                                            </>
+                                                                        ) : (
+                                                                            ""
+                                                                        )}
                                                                     </span>{" "}
                                                                     Tk
                                                                 </td>
@@ -555,7 +618,7 @@ const PaymentModal = ({
                                                                         {parseFloat(
                                                                             cartTotal -
                                                                                 (totalDiscount +
-                                                                                    customDiscount)
+                                                                                    customDiscountAmount)
                                                                         ).toFixed(
                                                                             2
                                                                         )}
