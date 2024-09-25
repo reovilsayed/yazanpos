@@ -93,7 +93,7 @@ export const ReportCard = ({ data }) => {
                             {data?.total_revenue.toFixed(2)} Tk
                         </span>
                     </div>
-                    <div className="d-flex justify-content-between pt-3">
+                    {/* <div className="d-flex justify-content-between pt-3">
                         <span
                             className="hover_blue"
                             style={{
@@ -121,7 +121,7 @@ export const ReportCard = ({ data }) => {
                         >
                             {data?.due_total.toFixed(2)} Tk
                         </span>
-                    </div>
+                    </div> */}
                 </div>
                 <div
                     className="p-4"
@@ -168,7 +168,7 @@ export const ReportCard = ({ data }) => {
                             {data?.total_orders}
                         </span>
                     </div>
-                    <div className="d-flex justify-content-between">
+                    {/* <div className="d-flex justify-content-between">
                         <span
                             className="hover_blue"
                             style={{
@@ -201,7 +201,7 @@ export const ReportCard = ({ data }) => {
                         >
                             {data?.due_orders}
                         </span>
-                    </div>
+                    </div> */}
                 </div>
                 <div
                     className=" p-4"

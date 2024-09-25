@@ -239,7 +239,7 @@ const Report = () => {
                                         />
                                     </div>
                                 </div>
-                                <div
+                                {/* <div
                                     className="p-4 screen_table"
                                     style={{
                                         border: "1px solid #eaeaea",
@@ -288,7 +288,7 @@ const Report = () => {
                                             dueData={data?.top_due_customers}
                                         />
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </>
