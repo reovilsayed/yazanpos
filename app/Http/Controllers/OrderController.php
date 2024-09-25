@@ -18,7 +18,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        if (!auth()->user()->role->hasPermissionTo('view order')){
+        if (!auth()->user()->role->hasPermissionTo('view order')) {
             return abort(403, 'You do not have permission to access the Order view.');
         }
         $orders = Order::latest()->filter()->paginate(24)->withQueryString();
@@ -58,7 +58,6 @@ class OrderController extends Controller
     public function getChartDataMonth()
     {
         $earnings = Earnings::range(now()->subMonths(12), now())->graph('Month');
-        return dd($earnings[0]['month']=='September');
 
         if (count($earnings) > 0) {
             $months = [
@@ -81,9 +80,9 @@ class OrderController extends Controller
                 'profit' => [],
             ];
 
-            foreach ($months as $month) {
-                $data['sales'][] = $earnings[$month]['sales'] ?? 0;
-                $data['profit'][] = $earnings[$month]['total_profit'] ?? 0;
+            foreach ($months as $month => $index) {
+                $data['sales'][] = $earnings[$index]['month'] == $month ? $earnings[$index]['sales'] : 0;
+                $data['profit'][] = $earnings[$index]['month'] == $month ? $earnings[$index]['total_profit'] : 0;
             }
         } else {
             $data = ['sales' => [], 'profit' => []];
