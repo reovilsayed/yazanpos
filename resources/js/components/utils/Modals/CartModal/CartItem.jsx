@@ -51,7 +51,7 @@ function CartItem({ item, updateDiscountItems }) {
         setDiscount(newDiscount);
         updateItem(item.id, {
             discountPrice,
-            discount: discount,
+            discount: newDiscount,
         });
         updateDiscountItems(item.id, item.itemTotal - discountPrice);
     };
