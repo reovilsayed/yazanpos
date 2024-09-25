@@ -58,7 +58,7 @@ class OrderController extends Controller
     public function getChartDataMonth()
     {
         $earnings = Earnings::range(now()->subMonths(12), now())->graph('Month');
-        return dd($earnings[8]['month']=='September');
+        return dd($earnings[0]['month']=='September');
 
         if (count($earnings) > 0) {
             $months = [
