@@ -44,7 +44,7 @@
                 justify-content: space-between;
             }
         </style>
-        <title>{{ env('APP_NAME') }}</title>
+        <title>{{ Settings::option('shopName') ?? env('APP_NAME') }}</title>
         @stack('styles')
         @livewireStyles
     </head>
