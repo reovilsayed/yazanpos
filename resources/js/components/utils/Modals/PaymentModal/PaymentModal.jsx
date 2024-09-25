@@ -113,7 +113,8 @@ const PaymentModal = ({
             (acc, current) => acc + parseFloat(current.received || 0),
             0
         );
-        const changeAmount = grand_total - (customDiscountAmount + totalPaid);
+        const changeAmount =
+            grand_total - (customDiscountAmount + totalDiscount + totalPaid);
 
         const paymentInfo = {
             pay_amount: grand_total,
@@ -130,7 +131,10 @@ const PaymentModal = ({
 
         const cartInfo = {
             products: items,
-            discount: customDiscountAmount ?? 0,
+            discount:
+                customDiscountAmount && totalDiscount
+                    ? customDiscountAmount + totalDiscount
+                    : 0,
             total: grand_total - customDiscountAmount,
             sub_total: cartTotal,
             total_quantity: totalItems,
