@@ -54,7 +54,7 @@
                                                 <p>Total Amount: {{ Settings::price($data['total']['sum']) }}</p>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-1">
+                                        {{-- <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-1">
                                             <div class="widget">
                                                 <p>Paid Orders: {{ $data['paid']['count'] }}</p>
 
@@ -74,7 +74,7 @@
 
                                                 <p>Due Orders: {{ Settings::price($data['due']['sum']) }}</p>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                     </div>
 

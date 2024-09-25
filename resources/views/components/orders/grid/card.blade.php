@@ -10,8 +10,7 @@
                         href="tel:{{ $order->customer->phone ?? '' }}">{{ $order->customer->phone ?? '(No Number)' }}</a></span>
             </div>
             <div class="col-md-4 col-4 text-right ps-0">
-                <span
-                    class="badge badge-pill pe-1 {{ $order->status == 'PAID' || $order->status == 'Paid' ? 'bg-success' : 'bg-danger' }}">
+                <span class="badge badge-pill pe-1 bg-success">
                     {{ $order->status }}
                 </span>
                 <span class="badge badge-pill pe-1 {{ $order->order_from == 'pos' ? 'bg-success' : 'bg-danger' }}"
@@ -19,14 +18,9 @@
                     <i
                         class="{{ $order->order_from == 'pos' ? 'fa-solid fa-cash-register' : 'fa-solid fa-mobile-retro' }} "></i>
                 </span>
-                <span class="badge badge-pill pe-1 {{ $order->delivered == '1' ? 'bg-success' : 'bg-danger' }}"
-                    title="{{ $order->delivered == '1' ? 'delivered' : 'not delivered' }}">
+                <span class="badge badge-pill pe-1 bg-success" title="delivered">
                     <i class="fas fa-car"></i>
-                    @if ($order->delivered == 1)
-                        <i class="fas fa-check"></i>
-                    @else
-                        <i class="fas fa-ban"></i>
-                    @endif
+                    <i class="fas fa-check"></i>
                 </span>
             </div>
         </div>
@@ -36,13 +30,13 @@
             <div class="col-md-7 col-7">
                 <p class="card-text">
                     <strong>Total:</strong> {{ Settings::price($order->total) }} <br>
-                    <strong>Paid:</strong> {{ Settings::price($order->paid) }} <br>
+                    {{-- <strong>Paid:</strong> {{ Settings::price($order->paid) }} <br> --}}
                     @if ($order->discount > 0)
                         <strong>Discount:</strong> {{ Settings::price($order->discount ?? 0) }} <br>
                     @endif
-                    @if ($order->due > 0)
+                    {{-- @if ($order->due > 0)
                         <strong class="text-danger">Due:</strong> {{ Settings::price($order->due ?? 0) }}<br>
-                    @endif
+                    @endif --}}
                     <strong class="text-success fw-bold">Order Id: # {{ $order->id }}</strong>
                 </p>
             </div>
@@ -56,7 +50,7 @@
                 <div class="btn-group gap-2" role="group">
                     <a class="btn btn-primary btn-sm" title="Invoice" href="{{ route('orders.invoice', $order) }}"><i
                             class="fa fa-eye"></i></a>
-                    @if ($order->delivered == 0)
+                    {{-- @if ($order->delivered == 0)
                         <a class="btn btn-primary btn-sm" title="Mark as delivered"
                             href="{{ route('orders.mark.delivered', $order) }}"><i class="fa fa-car"></i><i
                                 class="fas fa-check"></i></a>
@@ -72,7 +66,7 @@
                             <button type="submit" class="btn btn-dark btn-sm"><i class="fas fa-check"></i> Mark as
                                 Paid</button>
                         </form>
-                    @endif
+                    @endif --}}
                 </div>
             </div>
         </div>

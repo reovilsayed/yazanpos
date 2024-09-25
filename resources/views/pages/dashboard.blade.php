@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="box_model">
+    {{-- <div class="box_model">
         <div class="dsh_row row">
             <div class="left_chart">
                 <div class="dash_head">
@@ -33,11 +33,6 @@
                         <h3>Today's Sale</h3>
                         <label>{{ $todaysSale }} Tk.</label>
                     </div>
-                    {{-- <div class="vr_item grn">
-                        <i><img src="images/wlt.png" alt="" /></i>
-                        <h3>Last 7 days Earnings</h3>
-                        <label>{{ $sevendaysEarning }} Tk.</label>
-                    </div> --}}
                     <div class="vr_item grn">
                         <i><img src="images/chks.png" alt="" /></i>
                         <h3>Last 7 days Sale</h3>
@@ -46,7 +41,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="box_model">
         <div class="dsh_row row">
@@ -63,6 +58,16 @@
             <div class="rt_box">
 
                 <div class="vr_grid_box">
+                    <div class="vr_item grn">
+                        <i><img src="images/chks.png" alt="" /></i>
+                        <h3>Today's Sale</h3>
+                        <label>{{ $todaysSale }} Tk.</label>
+                    </div>
+                    <div class="vr_item grn">
+                        <i><img src="images/chks.png" alt="" /></i>
+                        <h3>Last 7 days Sale</h3>
+                        <label>{{ $sevensSale }} Tk.</label>
+                    </div>
                     <div class="vr_item">
                         <i><img src="images/chks.png" alt="" /></i>
                         <h3>Today Total Orders</h3>
@@ -73,11 +78,11 @@
                         <h3>Today Paid Orders</h3>
                         <label>{{ $paidToday }}</label>
                     </div>
-                    <div class="vr_item">
+                    {{-- <div class="vr_item">
                         <i><img src="images/clos.png" alt="" /></i>
                         <h3>Today Due Orders</h3>
                         <label>{{ $dueToday }}</label>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
