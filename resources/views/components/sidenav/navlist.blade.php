@@ -139,33 +139,33 @@
                             Generics
                         </a>
                     </li>
-                @endif --}}
+                @endif
             </ul>
         </li>
         @if (auth()->user()->role->hasPermissionTo('view purchase'))
             <x-sidenav.nav name="Purchase" :active="request()->is('purchase') ? 'menu-active' : ''" :href="route('purchase.index')" :icon="[asset('images/cart-arrow-down-icon.svg'), asset('images/cart-arrow-down-icon-white.svg')]" />
         @endif
+ --}}@if (auth()->user()->role->hasPermissionTo('view role'))
+                    <x-sidenav.nav name="roles" :active="request()->is('roles') ? 'menu-active' : ''" :href="route('roles.index')" :icon="[asset('images/role.png'), asset('images/role.png')]" />
+                @endif
+
+                <x-sidenav.nav name="Settings" :active="request()->is('settings/create') ? 'menu-active' : ''" :href="route('settings.create')" :icon="[asset('images/setting-icon.svg'), asset('images/setting-icon-white.svg')]" />
+                {{-- <x-sidenav.nav name="prescriptions" :active="request()->is('priscription') ? 'menu-active' : ''" :href="route('priscription.index')" :icon="[asset('images/prescription-icon.svg'), asset('images/prescription-icon.svg')]" /> --}}
 
 
-        <x-sidenav.nav name="Settings" :active="request()->is('settings/create') ? 'menu-active' : ''" :href="route('settings.create')" :icon="[asset('images/setting-icon.svg'), asset('images/setting-icon-white.svg')]" />
-        {{-- <x-sidenav.nav name="prescriptions" :active="request()->is('priscription') ? 'menu-active' : ''" :href="route('priscription.index')" :icon="[asset('images/prescription-icon.svg'), asset('images/prescription-icon.svg')]" /> --}}
-        @if (auth()->user()->role->hasPermissionTo('view role'))
-            <x-sidenav.nav name="roles" :active="request()->is('roles') ? 'menu-active' : ''" :href="route('roles.index')" :icon="[asset('images/role.png'), asset('images/role.png')]" />
-        @endif
+                <li>
+                    <a href="#" class="logout-trigger">
+                        <i>
+                            <img src={{ asset('images/nav7.png') }} alt="" />
+                            <img src={{ asset('images/nav7_hov.png') }} alt="" />
+                        </i>
 
-        <li>
-            <a href="#" class="logout-trigger">
-                <i>
-                    <img src={{ asset('images/nav7.png') }} alt="" />
-                    <img src={{ asset('images/nav7_hov.png') }} alt="" />
-                </i>
-
-                <span>Logout</span>
-            </a>
-        </li>
+                        <span>Logout</span>
+                    </a>
+                </li>
 
 
-    </ul>
+            </ul>
 </div>
 
 <script>
