@@ -8,29 +8,29 @@
     "src": "resources/js/components/assets/no-image.jpg"
   },
   "resources/js/app.js": {
-    "file": "assets/app.0f9f8252.js",
+    "file": "assets/app.abd4c6c9.js",
     "src": "resources/js/app.js",
     "isEntry": true,
     "dynamicImports": [
-      "_howler.7f91e5be.js"
+      "_howler.69687620.js"
     ],
     "css": [
-      "assets/app.14af3baa.css"
+      "assets/app.09449871.css"
     ],
     "assets": [
       "assets/no-image.b9e79929.jpg",
       "assets/Click Sound Effect.1f4c03dd.mp3"
     ]
   },
-  "_howler.7f91e5be.js": {
-    "file": "assets/howler.7f91e5be.js",
+  "_howler.69687620.js": {
+    "file": "assets/howler.69687620.js",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js"
     ]
   },
   "resources/js/app.css": {
-    "file": "assets/app.14af3baa.css",
+    "file": "assets/app.09449871.css",
     "src": "resources/js/app.css"
   }
 }
