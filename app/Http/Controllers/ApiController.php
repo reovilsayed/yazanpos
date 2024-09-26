@@ -153,11 +153,12 @@ class ApiController extends Controller
             }
         }
 
-        if ($request->cartInfo['discount'] > $request->cartInfo['sub_total'] * .12) {
+        /* if ($request->cartInfo['discount'] > $request->cartInfo['sub_total'] * .12) {
             $discount = $request->cartInfo['sub_total'] * .10;
         } else {
             $discount = $request->cartInfo['discount'];
-        }
+        } */
+        $discount = $request->cartInfo['discount'];
         $subTotal = $request->cartInfo['sub_total'];
         $total = $subTotal - ($discount ?? 0);
 
