@@ -49,13 +49,13 @@ const ModalFooter = ({
                     </tr> */}
                         <tr>
                             <th>Sub Total:.</th>
-                            <td>{parseFloat(cartTotal).toFixed(2)} Tk</td>
+                            <td>{parseFloat(cartTotal).toFixed(2)} $</td>
                         </tr>
                         <tr>
                             <th>Discount:</th>
                             <td>
                                 {parseFloat(totalDiscount).toFixed(2)}
-                                Tk.
+                                $
                             </td>
                         </tr>
                         <tr>
@@ -64,7 +64,7 @@ const ModalFooter = ({
                                 {parseFloat(cartTotal - totalDiscount).toFixed(
                                     2
                                 )}
-                                Tk.
+                                $
                             </td>
                         </tr>
                     </tbody>

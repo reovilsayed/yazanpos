@@ -33,7 +33,7 @@ const TopSupplierTable = ({ SupplierData }) => {
                                 textAlign: "right",
                             }}
                         >
-                            {supplier?.total_amount.toFixed(2)} Tk
+                            {supplier?.total_amount.toFixed(2)} $
                         </span>
                     </div>
                 ))}

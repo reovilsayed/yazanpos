@@ -38,7 +38,7 @@ export const TopDueCustomerTable = ({ dueData }) => {
                                 textAlign: "right",
                             }}
                         >
-                            {due?.total_order_amount.toFixed(2)} Tk
+                            {due?.total_order_amount.toFixed(2)} $
                         </span>
                     </div>
                 ))}

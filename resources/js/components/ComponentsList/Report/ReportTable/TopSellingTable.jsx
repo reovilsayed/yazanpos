@@ -54,7 +54,7 @@ const TopSellingTable = ({ sellingData }) => {
                                 textAlign: "right",
                             }}
                         >
-                            {customer?.total_price.toFixed(2)} Tk
+                            {customer?.total_price.toFixed(2)} $
                         </span>
                     </div>
                 ))}

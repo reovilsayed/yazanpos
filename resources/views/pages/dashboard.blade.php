@@ -26,17 +26,17 @@
                     <div class="vr_item grn">
                         <i><img src="images/wlt.png" alt="" /></i>
                         <h3>Today's Earnings</h3>
-                        <label>{{ $todayEarning }} Tk.</label>
+                        <label>{{ $todayEarning }} $</label>
                     </div>
                     <div class="vr_item grn">
                         <i><img src="images/chks.png" alt="" /></i>
                         <h3>Today's Sale</h3>
-                        <label>{{ $todaysSale }} Tk.</label>
+                        <label>{{ $todaysSale }} $</label>
                     </div>
                     <div class="vr_item grn">
                         <i><img src="images/chks.png" alt="" /></i>
                         <h3>Last 7 days Sale</h3>
-                        <label>{{ $sevensSale }} Tk.</label>
+                        <label>{{ $sevensSale }} $</label>
                     </div>
                 </div>
             </div>
@@ -61,12 +61,12 @@
                     <div class="vr_item grn">
                         <i><img src="images/chks.png" alt="" /></i>
                         <h3>Today's Sale</h3>
-                        <label>{{ $todaysSale }} Tk.</label>
+                        <label>{{ $todaysSale }} $</label>
                     </div>
                     <div class="vr_item grn">
                         <i><img src="images/chks.png" alt="" /></i>
                         <h3>Last 7 days Sale</h3>
-                        <label>{{ $sevensSale }} Tk.</label>
+                        <label>{{ $sevensSale }} $</label>
                     </div>
                     <div class="vr_item">
                         <i><img src="images/chks.png" alt="" /></i>
@@ -198,7 +198,7 @@
                         tooltip: {
                             y: {
                                 formatter: function(val) {
-                                    return val + " Tk.";
+                                    return val + " $";
                                 },
                             },
                         },

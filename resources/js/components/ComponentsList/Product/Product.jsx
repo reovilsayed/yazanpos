@@ -137,7 +137,7 @@ const Product = ({ product, openProductDetailsModal, play }) => {
                     }}
                     className="custom-card"
                 >
-                    <span style={badgeStyle}>{product?.price} Tk.</span>
+                    <span style={badgeStyle}>{product?.price} $</span>
                     <div
                         onClick={() => {
                             addItem(product);

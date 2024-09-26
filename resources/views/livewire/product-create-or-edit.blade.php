@@ -31,7 +31,7 @@
                             <div class="row row-cols-2">
 
                                 <x-form.input id="unit" name="unit" wire:model="unit" label="Unit" />
-                                <x-form.input id="price" name="price" wire:model="price" label="Unit Price (Tk) *"
+                                <x-form.input id="price" name="price" wire:model="price" label="Unit Price ($) *"
                                     required />
                                 <x-form.input id="trade_price" name="trade_price" wire:model="trade_price"
                                     label="TP + Vat " />

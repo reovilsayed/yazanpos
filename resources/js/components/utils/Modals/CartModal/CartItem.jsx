@@ -162,7 +162,7 @@ function CartItem({ item, updateDiscountItems }) {
                         <span>
                             {parseFloat(item.itemTotal).toFixed(2)}
                         </span>{" "}
-                        Taka
+                        $
                     </p>
                     <p
                         style={{
@@ -177,7 +177,7 @@ function CartItem({ item, updateDiscountItems }) {
                                 item.discountPrice ?? item.itemTotal
                             ).toFixed(2)}
                         </span>{" "}
-                        Taka
+                        $
                     </p>
                     <div className="mt-2 d-flex gap-1">
                         <div

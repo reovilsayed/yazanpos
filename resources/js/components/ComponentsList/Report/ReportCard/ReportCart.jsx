@@ -56,7 +56,7 @@ export const ReportCard = ({ data }) => {
                                 fontWeight: 600,
                             }}
                         >
-                            {data?.total_amount.toFixed(2)} Tk
+                            {data?.total_amount.toFixed(2)} $
                         </span>
                     </div>
                     <div className="d-flex justify-content-between align-items-center ">
@@ -90,7 +90,7 @@ export const ReportCard = ({ data }) => {
                                 color: "#646464",
                             }}
                         >
-                            {data?.total_revenue.toFixed(2)} Tk
+                            {data?.total_revenue.toFixed(2)} $
                         </span>
                     </div>
                     {/* <div className="d-flex justify-content-between pt-3">
@@ -119,7 +119,7 @@ export const ReportCard = ({ data }) => {
                                 color: "#646464",
                             }}
                         >
-                            {data?.due_total.toFixed(2)} Tk
+                            {data?.due_total.toFixed(2)} $
                         </span>
                     </div> */}
                 </div>

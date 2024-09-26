@@ -17,7 +17,7 @@ class Settings
 
     public function currency()
     {
-        return 'Tk.';
+        return '$';
     }
     public function option($param = null){
 

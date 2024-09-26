@@ -43,7 +43,7 @@ export const CustomerTable = ({ customerData }) => {
                                     textAlign: "right",
                                 }}
                             >
-                                {customer?.total_order_amount.toFixed(2)} Tk
+                                {customer?.total_order_amount.toFixed(2)} $
                             </span>
                         </div>
                     ))}

@@ -40,11 +40,11 @@
             <x-actions.delete :action="route('customers.destroy', $customer)" />
             @endif
         </div>
-        <div>
+        {{-- <div>
 
             <strong class=" {{ $customer->orders_sum_due > 0 ? 'text-danger' : 'text-primary' }}">
                 Due : <span>{{ Settings::price($customer->orders_sum_due / 100) }}</span> </strong>
-        </div>
+        </div> --}}
 
     </div>
 </div>
