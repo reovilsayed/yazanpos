@@ -117,7 +117,7 @@ const PaymentModal = ({
             grand_total - (customDiscountAmount + totalDiscount + totalPaid);
 
         const paymentInfo = {
-            pay_amount: grand_total,
+            pay_amount: grand_total - customDiscountAmount,
             received_amount: totalPaid,
             change_amount: changeAmount > 0 ? changeAmount : 0,
             due_amount: dueAmount,
@@ -208,7 +208,7 @@ const PaymentModal = ({
                                                                         }
                                                                     />
                                                                     <span className="input-group-text bg-light">
-                                                                        Tk
+                                                                        $
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -231,7 +231,7 @@ const PaymentModal = ({
                                                                         )}
                                                                     />
                                                                     <span className="input-group-text bg-light">
-                                                                        Tk
+                                                                        $
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -516,7 +516,7 @@ const PaymentModal = ({
                                                                                     ).toFixed(
                                                                                         2
                                                                                     )}{" "}
-                                                                                    Tk.
+                                                                                    $
                                                                                 </span>
                                                                             </td>
                                                                             <td>
@@ -526,7 +526,7 @@ const PaymentModal = ({
                                                                                     ).toFixed(
                                                                                         2
                                                                                     )}{" "}
-                                                                                    Tk.
+                                                                                    $
                                                                                 </span>
                                                                             </td>
                                                                             <td>
@@ -537,7 +537,7 @@ const PaymentModal = ({
                                                                                     ).toFixed(
                                                                                         2
                                                                                     )}{" "}
-                                                                                    Tk.
+                                                                                    $
                                                                                 </span>
                                                                             </td>
                                                                             <td>
@@ -548,7 +548,8 @@ const PaymentModal = ({
                                                                                     ).toFixed(
                                                                                         2
                                                                                     )}
-                                                                                    Tk.
+
+                                                                                    $
                                                                                 </span>
                                                                             </td>
                                                                         </tr>
@@ -572,7 +573,7 @@ const PaymentModal = ({
                                                                             2
                                                                         )}
                                                                     </span>
-                                                                    Tk
+                                                                    $
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -612,7 +613,7 @@ const PaymentModal = ({
                                                                             ""
                                                                         )}
                                                                     </span>{" "}
-                                                                    Tk
+                                                                    $
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -627,7 +628,7 @@ const PaymentModal = ({
                                                                             2
                                                                         )}
                                                                     </span>
-                                                                    Tk
+                                                                    $
                                                                 </td>
                                                             </tr>
                                                         </tbody>
