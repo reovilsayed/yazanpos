@@ -290,12 +290,6 @@ const PaymentModal = ({
                                                                             <option value="Cash">
                                                                                 Cash
                                                                             </option>
-                                                                            <option value="Bkash">
-                                                                                Bkash
-                                                                            </option>
-                                                                            <option value="Nagad">
-                                                                                Nagad
-                                                                            </option>
                                                                             <option value="Card">
                                                                                 Card
                                                                             </option>
