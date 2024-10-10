@@ -36,8 +36,12 @@
                 <a class="btn btn-sm btn-primary me-2" href="{{ route('customers.show', $customer) }}"><i
                         class="fa fa-eye"></i></a>
             @endif
+            @if (auth()->user()->role->hasPermissionTo('view customer'))
+                <a class="btn btn-sm btn-primary me-2" href="{{ route('customers.shifts', $customer) }}"><i
+                        class="fa fa-clock"></i></a>
+            @endif
             @if (auth()->user()->role->hasPermissionTo('delete customer'))
-            <x-actions.delete :action="route('customers.destroy', $customer)" />
+                <x-actions.delete :action="route('customers.destroy', $customer)" />
             @endif
         </div>
         {{-- <div>
