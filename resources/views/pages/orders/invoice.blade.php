@@ -107,12 +107,12 @@
                                             <td class="border-0 text-end">{{ Settings::price($order->paid) }}
                                             </td>
                                         </tr>
-                                        <tr class="bg-warning">
+                                        {{-- <tr class="bg-warning">
                                             <th scope="row" colspan="4" class="border-0 text-end">
                                                 Due Ammount :</th>
                                             <td class="border-0 text-end">{{ Settings::price($order->due) }}
                                             </td>
-                                        </tr>
+                                        </tr> --}}
                                     </tbody>
                                 </table>
                             </div>
