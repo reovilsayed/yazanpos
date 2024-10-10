@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EmployeeShift;
 use App\Models\Order;
 use App\Models\Role;
 use App\Models\Transaction;
@@ -18,7 +19,7 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
         // dd(User::where('role_id', 2)->withSum('orders', 'due')->get());
-        if (!auth()->user()->role->hasPermissionTo('view customer')){
+        if (!auth()->user()->role->hasPermissionTo('view customer')) {
             return abort(403, 'You do not have permission to access the customer view.');
         }
         $customers = User::withSum('orders', 'due')
@@ -40,12 +41,12 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        if (!auth()->user()->role->hasPermissionTo('create customer')){
+        if (!auth()->user()->role->hasPermissionTo('create customer')) {
             return abort(403, 'You do not have permission to access the customer create.');
         }
         $customers = new User();
-        $roles=Role::pluck('name','id')->toArray();
-        return view('pages.customers.create', compact('customers','roles'));
+        $roles = Role::pluck('name', 'id')->toArray();
+        return view('pages.customers.create', compact('customers', 'roles'));
     }
 
     /**
@@ -53,7 +54,7 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        if (!auth()->user()->role->hasPermissionTo('create customer')){
+        if (!auth()->user()->role->hasPermissionTo('create customer')) {
             return abort(403, 'You do not have permission to access the customer create.');
         }
 
@@ -89,7 +90,7 @@ class CustomerController extends Controller
      */
     public function show(User $customer)
     {
-        if (!auth()->user()->role->hasPermissionTo('view customer')){
+        if (!auth()->user()->role->hasPermissionTo('view customer')) {
             return abort(403, 'You do not have permission to access the customer create.');
         }
         if (request()->form && request()->to) {
@@ -97,9 +98,9 @@ class CustomerController extends Controller
         } else {
             $orders = $customer->orders;
         }
-        $transactions = Transaction::where('user_id', $customer->id)->latest()->get();
+        // $transactions = Transaction::where('user_id', $customer->id)->latest()->get();
         // dd($customer);
-        return view('pages.customers.invoice', compact('customer', 'orders', 'transactions'));
+        return view('pages.customers.invoice', compact('customer', 'orders'));
     }
 
     /**
@@ -107,11 +108,11 @@ class CustomerController extends Controller
      */
     public function edit(User $customer)
     {
-        if (!auth()->user()->role->hasPermissionTo('edit customer')){
+        if (!auth()->user()->role->hasPermissionTo('edit customer')) {
             return abort(403, 'You do not have permission to access the customer edit.');
         }
-        $roles=Role::pluck('name','id')->toArray();
-        return view('pages.customers.edit', compact('customer','roles'));
+        $roles = Role::pluck('name', 'id')->toArray();
+        return view('pages.customers.edit', compact('customer', 'roles'));
     }
 
     /**
@@ -119,7 +120,7 @@ class CustomerController extends Controller
      */
     public function update(Request $request, User $customer)
     {
-        if (!auth()->user()->role->hasPermissionTo('edit customer')){
+        if (!auth()->user()->role->hasPermissionTo('edit customer')) {
             return abort(403, 'You do not have permission to access the customer edit.');
         }
         $request->validate([
@@ -154,7 +155,7 @@ class CustomerController extends Controller
      */
     public function destroy(User $customer)
     {
-        if (!auth()->user()->role->hasPermissionTo('delete customer')){
+        if (!auth()->user()->role->hasPermissionTo('delete customer')) {
             return abort(403, 'You do not have permission to access the customer delete.');
         }
         $customer->delete();
@@ -225,5 +226,11 @@ class CustomerController extends Controller
     public function customerDelete()
     {
         return view('pages.customers.infoDeleteCustomer');
+    }
+
+    public function customerShifts(User $customer)
+    {
+        $shifts = EmployeeShift::where('user_id', $customer->id)->get();
+        return view('pages.customers.shifts', compact('shifts'));
     }
 }
