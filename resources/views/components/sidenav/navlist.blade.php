@@ -131,6 +131,15 @@
                         </a>
                     </li>
                 @endif
+                @if (auth()->user()->role->hasPermissionTo('view pre-discount'))
+                    <li
+                        class="dropdown-item {{ request()->route()->getName() == 'pre-discounts.index' ? 'drop-item-active' : '' }}">
+                        <a href="{{ route('pre-discounts.index') }}" class="mb-1" style="padding-left: 0px;">
+                            <img src="{{ asset('images/category-icon.svg') }}" alt="" style="width: 16px">
+                            Discounts
+                        </a>
+                    </li>
+                @endif
                 {{-- @if (auth()->user()->role->hasPermissionTo('view generic'))
                                 <li
                                     class="dropdown-item {{ request()->route()->getName() == 'generics.index' ? 'drop-item-active' : '' }}">
