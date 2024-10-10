@@ -49,6 +49,12 @@
 
 
                         </div>
+                        <div class="row row-cols-2">
+                            <x-form.input id="tax" name="tax" wire:model="tax" label="Tax"
+                                value="{{ $product?->tax }}" />
+                            <x-form.input id="cecet_tax" name="cecet_tax" wire:model="cecet_tax" label="CECET Tax"
+                                value="{{ $product?->cecet_tax }}" required />
+                        </div>
 
                     </div>
                 </div>
@@ -61,8 +67,8 @@
                                 type="select" label="Status" :options="[0 => 'False', 1 => 'True']" />
                             <x-form.input name="featured" wire:model="featured" value="{{ $product?->featured }}"
                                 type="select" label="Featured" :options="[0 => 'False', 1 => 'True']" />
-                            <x-form.input name="is_bonus" wire:model="is_bonus" value="{{ $product?->is_bonus }}"
-                                type="select" label="Product Variation" :options="['Rate Product' => 'Rate Product', 'Bonus Product' => 'Bonus Product']" />
+                            {{-- <x-form.input name="is_bonus" wire:model="is_bonus" value="{{ $product?->is_bonus }}"
+                                type="select" label="Product Variation" :options="['Rate Product' => 'Rate Product', 'Bonus Product' => 'Bonus Product']" /> --}}
                             <x-form.input name="is_variable" value="{{ $product?->is_variable }}" type="select"
                                 label="Is Variable" :options="[0 => 'False', 1 => 'True']" />
 

@@ -29,6 +29,8 @@ class ProductResource extends JsonResource
             'order' => $this->order,
             'sold_unit' => $this->sold_unit,
             'strength' => $this->strength,
+            'tax' => $this->tax,
+            'cecet_tax' => $this->cecet_tax,
             'scrapper_url' => $this->scrapper_url,
             'category' => [
                 'id' => $this->category_id,

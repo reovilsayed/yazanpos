@@ -39,6 +39,10 @@ class Product extends Model
     //         get: fn ($value) => $this->attributes['image'] ? asset('uploads/' . $this->attributes['image']) : $this->avatar()
     //     );
     // }
+    public function totalTax(): Attribute
+    {
+        return Attribute::make(get: fn($value) => ($this->tax ?? 0) + ($this->cecet_tax ?? 0));
+    }
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'category_product')->withTimestamps();

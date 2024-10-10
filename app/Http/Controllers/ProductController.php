@@ -20,7 +20,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        if (!auth()->user()->role->hasPermissionTo('view product')){
+        if (!auth()->user()->role->hasPermissionTo('view product')) {
             return abort(403, 'You do not have permission to access the Product view.');
         }
         $minutes = 5;
@@ -63,7 +63,7 @@ class ProductController extends Controller
     // }
     public function createOrEdit(Request $request, Product $product = null)
     {
-        if (!$product && !auth()->user()->role->hasPermissionTo('create product')){
+        if (!$product && !auth()->user()->role->hasPermissionTo('create product')) {
             return abort(403, 'You do not have permission to access the create product.');
         }
         $variations = $request->session()->get('variation_array') ?? [];
@@ -72,11 +72,11 @@ class ProductController extends Controller
         $categories = Category::all()->pluck('name', 'id')->toArray();
         $suppliers = Supplier::all()->pluck('name', 'id')->toArray();
         $units = Unit::all()->pluck('name', 'id')->toArray();
-        if($product){
+        if ($product) {
 
             $product_attributes = Attribute::where('product_id', $product->id)->get();
-        }else{
-            $product_attributes=[];
+        } else {
+            $product_attributes = [];
         }
         if (!session()->has('target')) {
             session()->flash('target', 'attribute');
@@ -93,7 +93,7 @@ class ProductController extends Controller
     }
     public function save(Request $request, Product $product = null)
     {
-       
+
         $validated = $request->validate([
             'name' => 'required|string',
             'image' => 'nullable|image|max:1024',
@@ -112,6 +112,8 @@ class ProductController extends Controller
             'box_size' => 'nullable',
             'strength' => 'nullable',
             'type' => 'nullable',
+            'tax' => 'nullable',
+            'cecet_tax' => 'nullable',
         ]);
 
         if (!$product) {
@@ -135,6 +137,8 @@ class ProductController extends Controller
         $product->strength = $request->strength;
         $product->type = $request->type;
         $product->is_variable = $request->is_variable;
+        $product->tax = $request->tax;
+        $product->cecet_tax = $request->cecet_tax;
 
         if ($request->hasFile('image')) {
             if ($product->image && Storage::exists($product->image)) {
@@ -146,8 +150,7 @@ class ProductController extends Controller
 
         $product->save();
 
-        return redirect(route('products.createOrEdit',$product->id))->with('success','Product Created Successfully');
-  
+        return redirect(route('products.createOrEdit', $product->id))->with('success', 'Product Created Successfully');
     }
     public function duplicateProduct(Request $request)
     {
