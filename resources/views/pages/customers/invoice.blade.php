@@ -171,7 +171,7 @@
                         </div>
                     </div>
                 </div>
-                @if ($transactions->count() > 0)
+                {{-- @if ($transactions->count() > 0)
                     <div class="card mt-2">
                         <div class="card-body mt-4">
                             <div class="py-2">
@@ -200,7 +200,7 @@
                             </div>
                         </div>
                     </div>
-                @endif
+                @endif --}}
 
 
             </div>
