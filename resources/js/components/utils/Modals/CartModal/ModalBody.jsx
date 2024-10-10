@@ -4,6 +4,7 @@ import ModalHeader from "./ModalHeader";
 import ModalFooter from "./ModalFooter";
 import { useCart } from "react-use-cart";
 import CartItem from "./CartItem";
+import useFetch from "../../../Hooks/useFatch";
 
 const ModalBody = ({
     cartDataValue,
@@ -52,6 +53,11 @@ const ModalBody = ({
 
     const resetDiscountItems = () => setItemDiscounts([]);
 
+    const { data: preDiscounts } = useFetch(
+        ["pre-discounts"],
+        `/api/pre-discounts`
+    );
+
     return (
         <div>
             <div className="offcanvas-header">
@@ -70,6 +76,7 @@ const ModalBody = ({
                     <CartItem
                         item={item}
                         updateDiscountItems={updateDiscountItems}
+                        preDiscounts={preDiscounts?.data}
                         key={index}
                     />
                 ))}

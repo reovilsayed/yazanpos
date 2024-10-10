@@ -5,27 +5,58 @@ import boopSfx from "../../../assets/Click Sound Effect.mp3";
 import { calculateDiscount } from "../../../../utils/lib";
 import image from "../../../assets/no-image.jpg";
 
-function CartItem({ item, updateDiscountItems }) {
+function CartItem({ item, updateDiscountItems, preDiscounts }) {
     const { items, updateItem, updateItemQuantity, removeItem } = useCart();
 
     const [discountType, setDiscountType] = useState("Fixed");
     const [discount, setDiscount] = useState(0.0);
-    const handleDiscountType = (value) => {
-        const discountPrice =
-            discount > 0
-                ? calculateDiscount(
-                      item.price * item.quantity,
-                      discount,
-                      value === "Percentage"
-                  )
-                : item.itemTotal;
-        if (discountPrice > item.itemTotal) return;
+    const [discountReason, setDiscountReason] = useState(
+        item?.discountReason ?? ""
+    );
+    const handlediscountReason = (event) => {
+        const { value } = event.target;
+        if (!value.length) return;
+        setDiscountReason(value);
         updateItem(item.id, {
-            discountPrice,
-            discount: discount,
+            discountReason: value,
         });
+    };
+
+    const handleDiscountType = (value) => {
+        var discountPrice = 0;
+
+        if (value?.title && value?.amount) {
+            discountPrice = calculateDiscount(
+                item.price * item.quantity,
+                value?.amount,
+                true
+            );
+            if (discountPrice > item.itemTotal) return;
+            setDiscountType(value?.title);
+            setDiscountReason(value?.title);
+            updateItem(item.id, {
+                discountPrice,
+                discount: value?.amount,
+                discountReason: value?.title,
+            });
+            setDiscount(value?.amount);
+        } else {
+            discountPrice =
+                discount > 0
+                    ? calculateDiscount(
+                          item.price * item.quantity,
+                          discount,
+                          value === "Percentage"
+                      )
+                    : item.itemTotal;
+            if (discountPrice > item.itemTotal) return;
+            setDiscountType(value);
+            updateItem(item.id, {
+                discountPrice,
+                discount: discount,
+            });
+        }
         updateDiscountItems(item.id, item.itemTotal - discountPrice);
-        setDiscountType(value);
         toggleDropdown();
     };
 
@@ -34,6 +65,7 @@ function CartItem({ item, updateDiscountItems }) {
     const toggleDropdown = () => setSowDiscountTypeDropdown((prev) => !prev);
 
     const handleDiscount = (event) => {
+        if (discountType !== "Fixed" && discountType !== "Percentage") return;
         const { value } = event.target;
         let newDiscount = parseFloat(value);
         if (isNaN(newDiscount) || newDiscount < 0) {
@@ -159,10 +191,7 @@ function CartItem({ item, updateDiscountItems }) {
                         {" X "}
                         <span>{parseFloat(item.price).toFixed(2)}</span>
                         {" = "}
-                        <span>
-                            {parseFloat(item.itemTotal).toFixed(2)}
-                        </span>{" "}
-                        $
+                        <span>{parseFloat(item.itemTotal).toFixed(2)}</span> $
                     </p>
                     <p
                         style={{
@@ -295,6 +324,26 @@ function CartItem({ item, updateDiscountItems }) {
 
                     <div>
                         <div className="input-group my-3">
+                            <input
+                                disabled={item.price == 0}
+                                type="text"
+                                /* onBlur={(e) => handelBlur(e)} */
+                                onChange={handlediscountReason}
+                                value={discountReason ?? ""}
+                                className="form-control"
+                                placeholder={`Enter discount reason`}
+                                aria-label="Text input with segmented  "
+                            />
+                            <input
+                                disabled={item.price == 0}
+                                type="number"
+                                /* onBlur={(e) => handelBlur(e)} */
+                                onChange={(e) => handleDiscount(e)}
+                                value={discount > 0 ? discount : ""}
+                                className="form-control"
+                                placeholder={`Enter discount in ${discountType.toLowerCase()} amount`}
+                                aria-label="Text input with segmented  "
+                            />
                             <button
                                 disabled={item.price == 0}
                                 type="button"
@@ -324,17 +373,18 @@ function CartItem({ item, updateDiscountItems }) {
                                 >
                                     Fixed
                                 </li>
+                                {preDiscounts?.map((preDiscount, index) => (
+                                    <li
+                                        key={index}
+                                        className="dropdown-item"
+                                        onClick={() =>
+                                            handleDiscountType(preDiscount)
+                                        }
+                                    >
+                                        {preDiscount?.title}
+                                    </li>
+                                ))}
                             </ul>
-                            <input
-                                disabled={item.price == 0}
-                                type="number"
-                                /* onBlur={(e) => handelBlur(e)} */
-                                onChange={(e) => handleDiscount(e)}
-                                value={discount > 0 ? discount : ""}
-                                className="form-control"
-                                placeholder={`Enter discount in ${discountType.toLowerCase()} amount`}
-                                aria-label="Text input with segmented  "
-                            />
                         </div>
                     </div>
                 </div>
