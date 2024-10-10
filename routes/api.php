@@ -38,6 +38,8 @@ Route::middleware(['api.auth'])->group(function () {
     Route::post('reports', [ApiController::class, 'reports']);
     Route::post('get-variation-price', [ApiController::class, 'getVariationPrice']);
 
+    Route::get('pre-discounts', [ApiController::class, 'preDiscounts']);
+
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'api_login']);
     Route::post('logout', [AuthController::class, 'logout']);

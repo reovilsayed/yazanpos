@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GenericsController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\POSController;
+use App\Http\Controllers\PreDiscountController;
 use App\Http\Controllers\PriscriptionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductVariationController;
@@ -91,6 +92,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('generics', GenericsController::class);
     Route::resource('customers', CustomerController::class);
+    Route::get('customers/shifts/{customer}', [CustomerController::class, 'customerShifts'])->name('customers.shifts');
     Route::post('deposite-full/{user}', [CustomerController::class, 'deposite_full'])->name('deposite.full');
     // Route::get('/invoice/{customer}', [CustomerController::class, 'invoice'])->name('invoice');
     Route::get('/point-of-sale', [POSController::class, 'index'])->name('pos');
@@ -115,7 +117,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('reports', [ReportsController::class, 'index'])->name('reports.index');
     Route::get('send-reports/{customer}', [ReportsController::class, 'send_report'])->name('reports.send');
     Route::get('scrap', [ScrapController::class, 'scrap'])->name('scrap');
-    Route::resource('roles',RoleController::class);
+    Route::resource('roles', RoleController::class);
+    Route::resource('pre-discounts', PreDiscountController::class);
 
     Route::group(['controller' => ProductVariationController::class], function () {
         Route::post('store-attribute', 'storeAttribue')->name('store.attribute');
