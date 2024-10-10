@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\User;
 use App\Models\Generic;
 use App\Models\Order;
+use App\Models\PreDiscount;
 use App\Models\Priscription;
 use App\Models\Supplier;
 use Carbon\Carbon;
@@ -61,6 +62,10 @@ class ApiController extends Controller
                     })->orderByRaw("CASE WHEN name = '$request->search' THEN 1 ELSE 2 END");
             })
             ->paginate(24);
+        $products->getCollection()->transform(function ($product) {
+            $product->total_tax = $product->totalTax;
+            return $product;
+        });
         return response()->json($products);
     }
     public function products(Request $request)
@@ -120,6 +125,11 @@ class ApiController extends Controller
             ];
         });
     }
+    public function preDiscounts()
+    {
+        $discounts = PreDiscount::all();
+        return response()->json($discounts);
+    }
     public function categories(Request $request)
     {
         return Category::where('name', 'LIKE', '%' . $request->input('q') . '%')->get()->map(function ($category) {
@@ -136,12 +146,17 @@ class ApiController extends Controller
         $customProducts = [];
         $data = [];
         foreach ($request->cartInfo['products'] as $id => $product) {
+            $discountInfo = json_encode([
+                'discount' => $product['discount'] ?? 0,
+                'reason' => $product['discountReason'] ?? ''
+            ]);
             if (Str::startsWith($product['id'], 'custom-')) {
                 $customProducts[] = [
                     'name' => $product['name'],
                     'quantity' => $product['quantity'],
                     'price' => $product['price'],
                     'profit' => 0,
+                    'discount' => $discountInfo
                 ];
             } else {
                 $data[$id] = [
@@ -149,6 +164,7 @@ class ApiController extends Controller
                     'quantity' => $product['quantity'],
                     'price' => $product['price'],
                     'profit' => 0,
+                    'discount' => $discountInfo
                 ];
             }
         }
@@ -205,6 +221,7 @@ class ApiController extends Controller
                     'name' => $product['name'],
                     'quantity' => $product['quantity'],
                     'price' => $product['price'],
+                    'discount' => $product['discount'],
                     'profit' => 0,
                 ]);
             }
