@@ -9,6 +9,7 @@ import { calculateDiscount } from "../../../../utils/lib";
 
 const PaymentModal = ({
     resetDiscountItems,
+    totalTax,
     open,
     onCloseModal,
     selectedOptionHead,
@@ -49,7 +50,7 @@ const PaymentModal = ({
                     : customDiscount;
         }
         // Calculate the due amount
-        const newDueAmount = grand_total - discount - totalPaid;
+        const newDueAmount = grand_total + totalTax - discount - totalPaid;
 
         setDueAmount(newDueAmount > 0 ? newDueAmount.toFixed(2) : 0);
         setCustomDiscountAmount(discount);
@@ -203,7 +204,8 @@ const PaymentModal = ({
                                                                         type="number"
                                                                         className="form-control"
                                                                         value={
-                                                                            grand_total -
+                                                                            grand_total +
+                                                                            totalTax -
                                                                             customDiscountAmount
                                                                         }
                                                                     />
@@ -572,6 +574,22 @@ const PaymentModal = ({
                                                             </tr>
                                                             <tr>
                                                                 <th>
+                                                                    Tax Total
+                                                                </th>
+                                                                <td className="text-end">
+                                                                    <span>
+                                                                        {" "}
+                                                                        {parseFloat(
+                                                                            totalTax
+                                                                        ).toFixed(
+                                                                            2
+                                                                        )}
+                                                                    </span>
+                                                                    $
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>
                                                                     Discount
                                                                 </th>
                                                                 <td className="text-end">
@@ -615,7 +633,8 @@ const PaymentModal = ({
                                                                 <td className="text-end">
                                                                     <span>
                                                                         {parseFloat(
-                                                                            cartTotal -
+                                                                            cartTotal +
+                                                                                totalTax -
                                                                                 (totalDiscount +
                                                                                     customDiscountAmount)
                                                                         ).toFixed(

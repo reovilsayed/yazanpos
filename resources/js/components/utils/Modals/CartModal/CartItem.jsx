@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useMemo, useState } from "react";
 import { useCart } from "react-use-cart";
 import useSound from "use-sound";
 import boopSfx from "../../../assets/Click Sound Effect.mp3";
@@ -143,6 +143,12 @@ function CartItem({ item, updateDiscountItems, preDiscounts }) {
         }
     };
 
+    const itemTotal = useMemo(() => {
+        return parseFloat(
+            item.itemTotal + (item.itemTotal * item?.total_tax) / 100
+        ).toFixed(2);
+    }, [item]);
+
     return (
         <Fragment>
             <div
@@ -200,10 +206,19 @@ function CartItem({ item, updateDiscountItems, preDiscounts }) {
                             fontSize: "12px",
                         }}
                     >
+                        After tax = <span>{itemTotal}</span> $
+                    </p>
+                    <p
+                        style={{
+                            padding: "0",
+                            margin: "0px",
+                            fontSize: "12px",
+                        }}
+                    >
                         After discount ={" "}
                         <span>
                             {parseFloat(
-                                item.discountPrice ?? item.itemTotal
+                                itemTotal - (item.discount ?? 0)
                             ).toFixed(2)}
                         </span>{" "}
                         $

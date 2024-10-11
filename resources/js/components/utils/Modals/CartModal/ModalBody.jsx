@@ -95,6 +95,14 @@ const ModalBody = ({
                     resetDiscountItems={resetDiscountItems}
                     setRefresh={setRefresh}
                     totalPrice={totalPrice}
+                    totalTax={items.reduce((accumulator, currentValue) => {
+                        return (
+                            accumulator +
+                            (currentValue?.itemTotal *
+                                currentValue?.total_tax) /
+                                100
+                        );
+                    }, 0)}
                     cartDataValue={cartDataValue}
                     refresh={refresh}
                     totalQuantity={totalQuantity}

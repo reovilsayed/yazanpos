@@ -9,7 +9,7 @@ import { useCart } from "react-use-cart";
 const ModalFooter = ({
     totalDiscount,
     resetDiscountItems,
-    totalPrice,
+    totalTax,
     totalQuantity,
     refresh,
     setRefresh,
@@ -52,18 +52,19 @@ const ModalFooter = ({
                             <td>{parseFloat(cartTotal).toFixed(2)} $</td>
                         </tr>
                         <tr>
+                            <th>Tax Total:.</th>
+                            <td>{parseFloat(totalTax).toFixed(2)} $</td>
+                        </tr>
+                        <tr>
                             <th>Discount:</th>
-                            <td>
-                                {parseFloat(totalDiscount).toFixed(2)}
-                                $
-                            </td>
+                            <td>{parseFloat(totalDiscount).toFixed(2)}$</td>
                         </tr>
                         <tr>
                             <th>Total: </th>
                             <td>
-                                {parseFloat(cartTotal - totalDiscount).toFixed(
-                                    2
-                                )}
+                                {parseFloat(
+                                    cartTotal + totalTax - totalDiscount
+                                ).toFixed(2)}
                                 $
                             </td>
                         </tr>
@@ -90,6 +91,7 @@ const ModalFooter = ({
                 {open && (
                     <PaymentModal
                         resetDiscountItems={resetDiscountItems}
+                        totalTax={totalTax}
                         grand_total={cartTotal - totalDiscount}
                         open={open}
                         onCloseModal={onCloseModal}
