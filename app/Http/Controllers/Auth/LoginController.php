@@ -35,6 +35,9 @@ class LoginController extends Controller
                 $request->session()->put('auth.password_confirmed_at', time());
             }
             if (auth()->user() && auth()->id()) {
+                $user = auth()->user();
+                $user->last_activity = now();
+                $user->save();
                 $prevShift = EmployeeShift::where('user_id', auth()->id())->where('status', 1)->first();
                 if (!$prevShift) {
                     EmployeeShift::create([

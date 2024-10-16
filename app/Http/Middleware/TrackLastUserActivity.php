@@ -18,13 +18,10 @@ class TrackLastUserActivity
     {
         if (Auth::check()) {
             $user = Auth::user();
-            
-
             if ($user->last_activity && now()->diffInMinutes($user->last_activity) >= 60) {
                 Auth::logout(); // Log the user out
                 $request->session()->invalidate(); // Invalidate the session
                 $request->session()->regenerateToken(); // Regenerate CSRF token
-
                 return redirect('/login')->withErrors(['You have been logged out due to inactivity.']);
             }
             $user->last_activity = now();
