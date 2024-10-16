@@ -4,11 +4,40 @@
             <div class="dashboard_content_inner">
                 <div class="mainData">
 
-                    <a href="{{ route('customers.index') }}" class="btn btn-success"><i class="fa-solid fa-reply-all"></i>
-                        All Customers</a>
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="{{ route('customers.index') }}" class="btn btn-success"><i
+                                    class="fa-solid fa-reply-all"></i>
+                                All Customers</a>
+                        </div>
+                        <div class="row my-3 d-flex justify-content-between align-items-center">
+                            <div class="col-10">
+                                <form action="{{ route('customers.shifts', $customer->id) }}" method="GET" class="row">
+                                    @csrf
+                                    <div class="col-3">
+                                        <input type="date" name="from" class="form-control" value="{{ request('from') }}">
+                                    </div>
+                                    <div class="col-3">
+                                        <input type="date" name="to" class="form-control" value="{{ request('to') }}">
+                                    </div>
+                                    <div class="col-3 d-flex align-items-end">
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="fa-solid fa-search"></i> Search
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-2 text-end">
+                            {{-- <span>Total Duty: {{ Carbon\CarbonInterval::minutes()->cascade()->forHumans() }}</span> --}}
+                            <span>Total Duty: {{ $shifts->map(fn($shift)=>$shift->durationInMin() )->sum() }} Hours</span>
+                            </div>
+                        </div>
+
+                    </div>
                     <div class="tab-content">
 
-                        <div class="tab-pane fade active show" id="list" role="tabpanel" aria-labelledby="list-tab">
+                        <div class="tab-pane fade active show" id="list" role="tabpanel"
+                            aria-labelledby="list-tab">
                             <table class="list_table all custom-fade-in">
                                 <thead>
                                     <tr>
@@ -36,6 +65,7 @@
                                             <td>
                                                 {{ $shift->duration() }}
                                             </td>
+
                                             {{-- <td>
                                                 @if (auth()->user()->role->hasPermissionTo('edit pre-discount'))
                                                     <a href="{{ route('pre-discounts.edit', $shift) }}"

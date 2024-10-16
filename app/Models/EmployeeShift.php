@@ -28,4 +28,10 @@ class EmployeeShift extends Model
             'syntax' => CarbonInterface::DIFF_ABSOLUTE,
         ]);
     }
+
+    public function durationInMin(){
+        $start = new Carbon($this->clock_in);
+        $end = new Carbon($this->clock_out ?? now());
+        return $end->diffInMinutes($start);
+    }
 }

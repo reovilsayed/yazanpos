@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Role;
 use App\Models\Transaction;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -173,7 +174,7 @@ class CustomerController extends Controller
         }
         Transaction::create([
             'user_id' => $customer,
-            'amount' => $request->amount
+            'amount' => $request->amount,
         ]);
         $amountRemaining = $request->amount;
 
@@ -228,9 +229,25 @@ class CustomerController extends Controller
         return view('pages.customers.infoDeleteCustomer');
     }
 
-    public function customerShifts(User $customer)
+    public function customerShifts(Request $request, User $customer)
     {
-        $shifts = EmployeeShift::where('user_id', $customer->id)->get();
-        return view('pages.customers.shifts', compact('shifts'));
+        // show data on frontend
+        $shifts = EmployeeShift::where('user_id', $customer->id);
+        if (!$request->from || !$request->to) {
+            $startOfMonth = Carbon::now()->startOfMonth();
+            $endOfMonth = Carbon::now()->endOfMonth();
+
+            $shifts = $shifts->whereDate('clock_in', '>=', $startOfMonth)
+                ->whereDate('clock_in', '<=', $endOfMonth);
+        } else {
+            if ($request->from) {
+                $shifts = $shifts->whereDate('clock_in', '>=', $request->from);
+            }
+            if ($request->to) {
+                $shifts = $shifts->whereDate('clock_in', '<=', $request->to);
+            }
+        }
+        $shifts = $shifts->get();
+        return view('pages.customers.shifts', compact('shifts', 'customer'));
     }
 }
