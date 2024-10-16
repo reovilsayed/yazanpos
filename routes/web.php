@@ -153,6 +153,4 @@ Route::middleware(['auth'])->group(function () {
         }
     });
 });
-Route::get('/error', function () {
-    return $wrongvar;
-});
+

@@ -24,6 +24,7 @@
         @endif
         <p class="mb-2"><strong>Gender : </strong>{{ $customer->gender }}</p>
         <p class="mb-2"><strong>Address : </strong>{{ $customer->address }}</p>
+        <p class="mb-2"><strong>Role : </strong>{{ $customer->role?->name }}</p>
     </div>
     <div class="card-footer bg-white d-flex justify-content-between align-items-center">
 
@@ -36,7 +37,7 @@
                 <a class="btn btn-sm btn-primary me-2" href="{{ route('customers.show', $customer) }}"><i
                         class="fa fa-eye"></i></a>
             @endif
-            @if (auth()->user()->role->hasPermissionTo('view customer'))
+            @if (auth()->user()->role->hasPermissionTo('view customer') && $customer->role?->name != 'customer')
                 <a class="btn btn-sm btn-primary me-2" href="{{ route('customers.shifts', $customer) }}"><i
                         class="fa fa-clock"></i></a>
             @endif

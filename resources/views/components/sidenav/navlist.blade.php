@@ -61,7 +61,7 @@
             <x-sidenav.nav name="Dashboard" :active="request()->is('/') ? 'menu-active' : ''" :href="route('dashboard')" :icon="[asset('images/homepage-icon.svg'), asset('images/homepage-icon-white.svg')]" />
         @endif
         @if (auth()->user()->role->hasPermissionTo('view customer'))
-            <x-sidenav.nav name="Customer" :active="request()->is('customers') ? 'menu-active' : ''" :href="route('customers.index')" :icon="[asset('images/users_3914283.svg'), asset('images/users_3914283.svg')]" />
+            <x-sidenav.nav name="Users" :active="request()->is('customers') ? 'menu-active' : ''" :href="route('customers.index')" :icon="[asset('images/users_3914283.svg'), asset('images/users_3914283.svg')]" />
         @endif
         @if (auth()->user()->role->hasPermissionTo('pos'))
             <x-sidenav.nav name="Point Of Sale" :active="request()->is('point-of-sale') ? 'menu-active' : ''" :href="route('pos')" :icon="[asset('images/pos-swipe-icon.svg'), asset('images/pos-swipe-icon-white.svg')]" />
