@@ -15,6 +15,7 @@
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.2",
         "livewire/livewire": "^3.2",
+        "maatwebsite/excel": "^3.1",
         "milon/barcode": "^10.0",
         "php-flasher/flasher-laravel": "^1.15",
         "rogervila/array-diff-multidimensional": "^2.1",

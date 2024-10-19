@@ -1,40 +1,43 @@
 <?php
 
-use App\Facades\Settings\SettingsFacade;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\GenericsController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\POSController;
-use App\Http\Controllers\PreDiscountController;
-use App\Http\Controllers\PriscriptionController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProductVariationController;
-use App\Http\Controllers\PurchaseController;
-use App\Http\Controllers\ReportsController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\ScrapController;
-use App\Http\Controllers\SettingController;
-use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\UnitController;
-use App\Mail\CustomerReport;
-use App\Mail\DueClearReminder;
-use App\Mail\DuePaidMail;
-use App\Mail\MonthlyDueReport;
-use App\Mail\OrderConfirmationMail;
-use App\Mail\PurchasesMailForShopOwner;
-use App\Models\Customer;
-use App\Models\User;
-use App\Models\Order;
 use Carbon\Carbon;
 use Dompdf\Dompdf;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Dompdf\Options;
+use App\Models\User;
+use App\Models\Order;
+use App\Models\Customer;
+use App\Mail\DuePaidMail;
+use App\Mail\CustomerReport;
+use App\Mail\DueClearReminder;
+use App\Mail\MonthlyDueReport;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Mail\OrderConfirmationMail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\POSController;
+use App\Mail\PurchasesMailForShopOwner;
+use App\Facades\Settings\SettingsFacade;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UnitController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ScrapController;
+use App\Exports\EmployeeShiftSingleExport;
+use App\Http\Controllers\ExportController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\GenericsController;
+use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\PreDiscountController;
+use App\Http\Controllers\PriscriptionController;
+use App\Http\Controllers\ProductVariationController;
 // use App\Http\Controllers\ScrapController;
 /*
 |--------------------------------------------------------------------------
@@ -89,6 +92,10 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('delete/{product}', 'destroy')->name('delete');
         }
     );
+
+
+    Route::get('/export-users-single', [ExportController::class, 'exportShiftSingle'])->name('export-users-single');
+
 
     Route::resource('generics', GenericsController::class);
     Route::resource('customers', CustomerController::class);

@@ -9,6 +9,9 @@
                             <a href="{{ route('customers.index') }}" class="btn btn-success"><i
                                     class="fa-solid fa-reply-all"></i>
                                 All Customers</a>
+                            <a href="{{ route('export-users-single',['from'=>request('from'),'to'=>request('to')]) }}" class="btn btn-success"><i
+                                    class="fa-solid fa-download"></i>
+                                Export</a>
                         </div>
                         <div class="row my-3 d-flex justify-content-between align-items-center">
                             <div class="col-10">

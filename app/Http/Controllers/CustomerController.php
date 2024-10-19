@@ -231,7 +231,6 @@ class CustomerController extends Controller
 
     public function customerShifts(Request $request, User $customer)
     {
-        // show data on frontend
         $shifts = EmployeeShift::where('user_id', $customer->id);
         if (!$request->from || !$request->to) {
             $startOfMonth = Carbon::now()->startOfMonth();
