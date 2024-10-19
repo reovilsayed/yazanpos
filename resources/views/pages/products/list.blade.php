@@ -66,11 +66,17 @@
                                             New
                                             product</a>
                                     @endif
-                                    @foreach (['Tops', 'Bottoms', 'Dresses', 'Outerwear', 'Activewear', 'Underwear', 'Swimwear', 'Footwear', 'Accessories'] as $item)
+                                    <a href="{{ route('export-inventory') }}" class="btn btn-success mb-1"><i
+                                        class="fa-solid fa-download"></i>
+                                    Export</a>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        @foreach (['Tops', 'Bottoms', 'Dresses', 'Outerwear', 'Activewear', 'Underwear', 'Swimwear', 'Footwear', 'Accessories'] as $item)
                                         <a class="btn btn-info mb-1"
                                             href="{{ route('products.index', ['search[column]' => 'type', 'search[query]' => $item]) }}">{{ $item }}</a>
                                     @endforeach
-
+                                    </div>
                                 </div>
                                 <div class="col-md-5 col-6">
                                     <div class="row">

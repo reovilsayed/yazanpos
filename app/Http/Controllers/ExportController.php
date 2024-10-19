@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Exports\EmployeeShiftSingleExport;
+use App\Exports\InventoryExport;
 use App\Exports\OrdersExport;
 use App\Models\EmployeeShift;
 use App\Models\Order;
+use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -88,5 +90,35 @@ class ExportController extends Controller
             });
 
         return Excel::download(new OrdersExport($data), 'Orders.xlsx');
+    }
+
+    public function exportInventory(Request $request)
+    {
+        $eventName = $request->event_name;
+        $data = Product::with('generic')
+            ->get()
+            ->map(function ($product) use ($eventName) {
+                return [
+                    'ID' => $product->id,
+                    'Name' => $product->name,
+                    // 'Alternate Name'=>$product->,
+                    'Price' => $product->price,
+                    // 'Price Type'=>$product->,
+                    'Price Unit' => $product->unit,
+                    'Tax Rates' => $product->tax,
+                    // 'Cost'=>$product->,
+                    // 'Product Code'=>$product->,
+                    'SKU' => $product->sku,
+                    // 'Modifier Groups'=>$product->,
+                    'Quantity' => $product->quantity,
+                    // 'Printer Labels'=>$product->,
+                    // 'Hidden'=>$product->,
+                    // 'Non-revenue item'=>$product->,
+                    // 'Discountable'=>$product->,
+                    // 'Max Discount Allowed'=>$product->,
+                    // 'Tags'=>$product->,
+                ];
+            });
+        return Excel::download(new InventoryExport($data), 'Inventory.xlsx');
     }
 }
