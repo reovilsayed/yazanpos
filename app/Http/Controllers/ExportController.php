@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Exports\EmployeeShiftSingleExport;
+use App\Exports\OrdersExport;
 use App\Models\EmployeeShift;
+use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -47,5 +49,44 @@ class ExportController extends Controller
 
         $firstUserName = $data->first()['Employee Name'];
         return Excel::download(new EmployeeShiftSingleExport($data), $firstUserName . '_shift.xlsx');
+    }
+
+    public function exportOrders(Request $request)
+    {
+        $eventName = $request->event_name;
+        $data = Order::with(['customer', 'products'])
+            ->get()
+            ->map(function ($order) use ($eventName) {
+                $totalTax = $order->products->sum(function ($product) {
+                    return $product->pivot->tax * $product->pivot->quantity;
+                });
+                return [
+                    'Order Date' => $order->created_at->format('Y-m-d'),
+                    'Order ID' => $order->id,
+                    'Invoice Number' => $order->id,
+                    'Order Number' => $order->id,
+                    // 'Order Type'=>'',
+                    'Order Employee ID' => $order->customer->id,
+                    'Order Employee Name' => $order->customer->name,
+                    // 'Order Employee Custom ID'=>'',
+                    'Note' => $order->notes,
+                    'Currency' => 'USD',
+                    'Tax Amount' => $totalTax,
+                    // 'Tip'=>'',
+                    // 'Service Charge'=>'',
+                    'Discount' => $order->discount,
+                    'Order Total' => $order->total,
+                    'Payments Total' => $order->total,
+                    // 'Payment Note'=>'',
+                    // 'Refunds Total'=>'',
+                    // 'Manual Refunds Total'=>'',
+                    // 'Tender'=>'',
+                    // 'Credit Card Auth Code'=>'',
+                    // 'Credit Card Transaction ID'=>'',
+                    // 'Order Payment State'=>'',
+                ];
+            });
+
+        return Excel::download(new OrdersExport($data), 'Orders.xlsx');
     }
 }

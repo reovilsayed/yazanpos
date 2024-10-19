@@ -95,6 +95,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::get('/export-users-single', [ExportController::class, 'exportShiftSingle'])->name('export-users-single');
+    Route::get('/export-orders', [ExportController::class, 'exportOrders'])->name('export-orders');
 
 
     Route::resource('generics', GenericsController::class);

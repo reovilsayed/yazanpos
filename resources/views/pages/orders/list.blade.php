@@ -45,8 +45,12 @@
                     <div class="tab_panel active">
                         <div class="panel_inner panel_inner_scrollable">
                             <div class="row ">
-
                                 <div class="col-md-12 col-12">
+                                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-1">
+                                        <a href="{{ route('export-orders') }}" class="btn btn-success"><i
+                                            class="fa-solid fa-download"></i>
+                                        Export</a>
+                                    </div>
                                     <div class="row">
                                         <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-1">
                                             <div class="widget">
@@ -54,6 +58,7 @@
                                                 <p>Total Amount: {{ Settings::price($data['total']['sum']) }}</p>
                                             </div>
                                         </div>
+
                                         {{-- <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-1">
                                             <div class="widget">
                                                 <p>Paid Orders: {{ $data['paid']['count'] }}</p>
