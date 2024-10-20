@@ -13,10 +13,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('send:due-reminder-emails')->monthly();
-        $schedule->command('reports:send-monthly-due')->monthlyOn(1, '12:00');
+        // $schedule->command('send:due-reminder-emails')->monthly();
+        // $schedule->command('reports:send-monthly-due')->monthlyOn(1, '12:00');
 
-        // $schedule->command('scrap:everymin')->everyMinute();
+         $schedule->command('close:inactive-user-shift')->everyMinute();
     }
 
     /**
